@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg5332"
+   viewBox="0 0 256.00007 256.00002"
+   height="72.248894mm"
+   width="72.248909mm">
+  <title
+     id="title6337">Monitor</title>
+  <defs
+     id="defs5334" />
+  <metadata
+     id="metadata5337">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Monitor</dc:title>
+        <cc:license
+           rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Josh &quot;Cheeseness&quot; Bush</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:description>Originally created for the official shirt for the 2014 Open Source Developers' Conference held at Griffith University.</dc:description>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>monitor screen</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:date>2014-10-22</dc:date>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/publicdomain/zero/1.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-362.5464,-406.21469)"
+     id="layer1">
+    <path
+       id="rect4213"
+       d="m 373.48194,446.52222 c -5.9618,0 -10.9355,4.97396 -10.9355,10.93544 l 0,122.43103 c 0,5.96179 4.9737,10.93543 10.9355,10.93543 l 78.2248,0 c -1.8516,17.81773 -10.5411,24.3016 -13.4504,26.00634 l -6.1798,0 c -1.2054,0 -2.1753,0.96996 -2.1753,2.17527 l 0,0.72616 c 0,1.20532 0.9699,2.17528 2.1753,2.17528 l 116.9367,0 c 1.2054,0 2.1784,-0.96996 2.1784,-2.17528 l 0,-0.72616 c 0,-1.20531 -0.973,-2.17527 -2.1784,-2.17527 l -6.1767,0 c -2.9098,-1.70522 -11.5957,-8.18957 -13.4473,-26.00634 l 78.2218,0 c 5.9617,0 10.9354,-4.97364 10.9354,-10.93543 l 0,-122.43103 c 0,-5.96148 -4.9737,-10.93544 -10.9354,-10.93544 l -234.1291,0 z m 0.2337,11.16919 233.6616,0 0,121.96353 -233.6616,0 0,-121.96353 z"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;color-interpolation:sRGB;color-interpolation-filters:linearRGB;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+  </g>
+</svg>

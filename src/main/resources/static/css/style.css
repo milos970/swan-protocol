@@ -1,0 +1,368 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    background-color: #59635f !important;
+    font-family: Verdana, sans-serif;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+
+.all {
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s;
+
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
+}
+
+/* code from w3 */
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+
+.video-with-centered-text {
+    position: relative;
+    top: 57px;
+
+}
+
+
+video {
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+.h1 {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-shadow: 1px 1px 1px black;
+
+}
+
+.picture-with-centered-text {
+    position: relative;
+    text-align: center;
+    color: white;
+    margin-top: 50px;
+}
+
+.picture-with-centered-text a {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    font-size: 2rem;
+
+}
+
+.picture {
+    filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));
+}
+
+.picture-with-centered-text img {
+    width: 90%;
+}
+
+
+li a:hover {
+    background-color: rgb(196, 196, 156);
+    text-shadow: 1px 1px 1px black;
+}
+
+
+.login-link {
+    color: white !important;
+    text-decoration: none;
+}
+
+
+.login-link:hover {
+    background-color: rgb(196, 196, 156);
+    text-shadow: 1px 1px 1px black;
+    color: white;
+}
+
+
+.flex-columns {
+    display: flex;
+    flex-direction: row;
+}
+
+.container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.footer {
+    background-color: darkgray;
+    height: 100px;
+    width: 100%;
+}
+
+.sites {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+
+/* Page A/Page B */
+
+
+.flex-container-page-a {
+    background-color: #4f4f4c;
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
+    padding: 40px;
+    width: 60%;
+    margin: 10rem auto 8rem;
+}
+
+.flex-container-page-a img {
+    height: 250px;
+}
+
+
+@media only screen and (max-width: 1483px) {
+    .flex-container-page-a {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 40px;
+        width: 60%;
+        margin: 10rem auto 8rem;
+    }
+
+    .flex-container-page-a img {
+        width: 100%;
+        height: 60%;
+    }
+
+}
+
+.users-number {
+    color: #84bb20;
+    text-shadow: 1px 1px 1px #a2d716;
+    font-size: 2rem;
+}
+
+.future-users-number {
+    color: #227be7;
+    text-shadow: 1px 1px 1px #448ff3;
+    font-size: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+.item-page-a p {
+    color: white;
+}
+
+/* Login*/
+
+.form-label-login {
+    color: white;
+}
+
+.form-check-remember-me {
+    color: white;
+}
+
+.forgot-password {
+    color: white;
+}
+
+/* User*/
+
+.description
+{
+    margin-top: 400px;
+    text-align: center;
+}
+
+/* Update*/
+
+.log{
+    margin-top: 100px;
+}
+
+
+/* user */
+.screen
+{
+    background-color: aqua;
+    position:relative;
+}
+
+.screen2
+{
+    background-color: cornflowerblue;
+    position:relative;
+    margin-top: 20px;
+}
+
+
+
+
+
+/*worker*/
+
+.worker-body, html {
+    height: 100%;
+}
+
+.worker-body {
+    background-color: lightslategray;
+}
+
+.flex-container-worker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+}
+
+.flex-item-worker {
+    margin: 10px;
+    padding: 20px;
+    font-size: 75px;
+}
+
+
+
+.flex-item-worker > button {
+
+    font-size: 50px;
+}
+
+.flex-item-worker > a > img {
+    height:200px;
+    width: 200px;
+}
+
+
+@media only screen and (max-width: 1483px) {
+    .flex-container-worker {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 40px;
+        width: 60%;
+        margin: 10rem auto 8rem;
+    }
+
+
+}
+
+
+
+
+
+
+/*.who-is-logged
+{
+    display: flex;
+    width: 400px;
+    height: 400px;
+    align-items: center;
+    background-color: red;
+}
+
+.field {
+    width: 100%;
+    height: 20px;
+    background-color: white;
+}
+
+.username {
+    text-align: center;
+}*/
+
+
+
+
+
+/* update-worker */
+
+.update-worker-body {
+    background-color: #8bb0e1;
+}
+
+
+/* work */
+.work-body {
+    background-color: #ffffff !important;
+}
+
+
+.forum-text-area {
+    border:1px solid red;
+    box-shadow: 0 0 10px #719ECE;
+}
+
+.forum-input {
+    border:1px solid #0033ff;
+    box-shadow: 0 0 10px #71ce87;
+}
+
+
+.work-body {
+    background-color: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

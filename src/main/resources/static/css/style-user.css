@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.work-body {
+    background-color: black;
+}
+
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    gap: 20px;
+
+    width:50%;
+}
+
+
+
+
+.screen {
+    background-color: #1a1919;
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+}
+
+.countdown {
+    background-color: #ababb4;
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+}
+
+
+.countdown > p {
+    text-align: center;
+    color: white;
+    font-size: 50px;
+}
+
+
+
+
+
+
+
+#City {
+    border:0;
+    outline:0;
+    background-color:  black;
+}
+
+input:focus {
+    outline:none!important;
+    color: white;
+}
+
+input {
+    background-color: black;
+    width: 100%;
+    box-sizing:border-box
+}
+
+
+
+.command-prompt {
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+
+
