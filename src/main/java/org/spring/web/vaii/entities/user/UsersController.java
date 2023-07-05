@@ -2,7 +2,6 @@ package org.spring.web.vaii.entities.user;
 
 import org.spring.web.vaii.Countdown;
 import org.spring.web.vaii.Role;
-import org.spring.web.vaii.entities.comment.Comment;
 import org.spring.web.vaii.entities.image.ImageService;
 import org.spring.web.vaii.entities.score.Score;
 import org.spring.web.vaii.entities.score.ScoreService;
@@ -41,7 +40,7 @@ public class UsersController {
 
     private  int occupied = 0;
 
-    private final String numbers = "1 2 3 4 5";
+    private final String NUMBERS = "4 8 15 16 23 42";
 
 
 
@@ -185,7 +184,7 @@ public class UsersController {
     public ResponseEntity<Boolean> checkCode(@RequestParam("form3Example1cg") String form3Example1cg) {
 
 
-        if (numbers.equals(form3Example1cg)) {
+        if (NUMBERS.equals(form3Example1cg)) {
             Countdown.getInstance().reset();
             Score score = this.scoreService.getLastScore();
             score.addSuccess();

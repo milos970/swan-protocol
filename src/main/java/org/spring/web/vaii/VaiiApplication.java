@@ -20,11 +20,6 @@ public class VaiiApplication implements CommandLineRunner {
 
 		SpringApplication.run(VaiiApplication.class, args);
 		Countdown.getInstance().start();
-
-
-
-
-
 	}
 
 

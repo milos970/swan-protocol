@@ -14,7 +14,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Forum</title>
 </head>
-<body class="work-body"  onload="ajax()">
+<body style="background-color: #ababb4;" class="work-body"  onload="ajax()">
 
 <header>
 
@@ -55,7 +55,7 @@
 
 <table class="table table-sm">
     <tr>
-        <th> <span>Contents of messages</span> </th>
+        <th> <span>Contents</span> </th>
         <th> <span>Worker</span> </th>
         <th> <span>Date time</span> </th>
     </tr>
@@ -65,13 +65,8 @@
         <td th:text="${comment?.worker?.getUsername()}"></td>
         <td th:text="${comment.creationDateTime}"></td>
     </tr>
-
-
-
-
-
-
 </table>
+
 <script th:src="@{/js/validate.js}"></script>
 </body>
 </html>
