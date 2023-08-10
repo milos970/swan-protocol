@@ -52,7 +52,7 @@ public class UsersController {
         Calendar time = Calendar.getInstance();
         int hour = time.get(Calendar.HOUR_OF_DAY);
 
-        System.out.println(this.imageService.getImage(1).getPath());
+        
         if (hour <= 18) {
             model.addAttribute("videoPath",this.imageService.getImage(1).getPath());
             model.addAttribute("imagePathA",this.imageService.getImage(3).getPath());
@@ -286,7 +286,7 @@ public class UsersController {
             } else {
                 score.setWorker_name(this.worker.getUsername());
             }
-            System.out.println(5456);
+            
             this.scoreService.save(score);
             finished = 2;
             Random rand = new Random();
