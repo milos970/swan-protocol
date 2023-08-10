@@ -287,6 +287,12 @@ li a:hover {
 }
 
 
+#username-hint, #email-hint, #password-hint
+{
+    color:red;
+}
+
+
 
 
 
