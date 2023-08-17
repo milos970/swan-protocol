@@ -4,6 +4,8 @@ import org.spring.web.vaii.entities.image.Image;
 import org.spring.web.vaii.entities.image.ImageRepository;
 import org.spring.web.vaii.entities.score.Score;
 import org.spring.web.vaii.entities.score.ScoreRepository;
+import org.spring.web.vaii.entities.worker.Worker;
+import org.spring.web.vaii.entities.worker.WorkerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +18,11 @@ public class VaiiApplication implements CommandLineRunner {
 
 	@Autowired
 	ImageRepository imageRepository;
+
+
+	@Autowired
+	WorkerRepository workerRepository;
+
 	public static void main(String[] args) {
 
 		SpringApplication.run(VaiiApplication.class, args);
@@ -27,6 +34,14 @@ public class VaiiApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception
 	{
+
+		Worker worker = new Worker();
+		worker.setUsername("Admin");
+		worker.setEmail("admin@gmail.com");
+		worker.setPassword("$2a$12$SPWCRvcC/VTtj59xBSAvwOEYpw2xW93rpJpHR6L2P84vshqbtqbgK"); //Password/123
+		worker.setRole(Role.ADMIN);
+		this.workerRepository.save(worker);
+
 		Score score = new Score();
 		this.scoreRepository.save(score);
 
