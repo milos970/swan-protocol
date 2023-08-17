@@ -6,10 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.spring.web.vaii.entities.user.Worker;
+import org.spring.web.vaii.entities.worker.Worker;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Data

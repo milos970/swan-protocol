@@ -1,7 +1,5 @@
 package org.spring.web.vaii.entities.score;
 
-import org.spring.web.vaii.entities.comment.CommentService;
-import org.spring.web.vaii.entities.user.Worker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

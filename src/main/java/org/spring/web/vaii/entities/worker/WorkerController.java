@@ -1,4 +1,4 @@
-package org.spring.web.vaii.entities.user;
+package org.spring.web.vaii.entities.worker;
 
 import org.spring.web.vaii.Countdown;
 import org.spring.web.vaii.Role;

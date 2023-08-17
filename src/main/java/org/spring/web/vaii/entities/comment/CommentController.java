@@ -1,5 +1,5 @@
 package org.spring.web.vaii.entities.comment;
-import org.spring.web.vaii.entities.user.MyWorkerDetails;
+import org.spring.web.vaii.entities.worker.MyWorkerDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

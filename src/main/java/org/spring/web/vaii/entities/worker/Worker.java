@@ -1,4 +1,4 @@
-package org.spring.web.vaii.entities.user;
+package org.spring.web.vaii.entities.worker;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,9 +13,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.security.SecureRandom;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 import lombok.NoArgsConstructor;

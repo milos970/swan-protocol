@@ -1,4 +1,4 @@
-package org.spring.web.vaii.entities.user;
+package org.spring.web.vaii.entities.worker;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
