@@ -1,6 +1,5 @@
 package org.spring.web.vaii.entities.comment;
-import org.spring.web.vaii.entities.user.MyUserDetails;
-import org.spring.web.vaii.entities.user.Worker;
+import org.spring.web.vaii.entities.user.MyWorkerDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,8 +31,8 @@ public class CommentController
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         comment.setCreationDateTime(formatter.format(date));
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails myUserDetails = (MyUserDetails)auth.getPrincipal();
-        comment.setWorker(myUserDetails.getWorker());
+        MyWorkerDetails myWorkerDetails = (MyWorkerDetails)auth.getPrincipal();
+        comment.setWorker(myWorkerDetails.getWorker());
         this.commentService.save(comment);
         return  "redirect:/worker/show-forum";
     }

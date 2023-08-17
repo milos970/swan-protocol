@@ -7,11 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class MyUserDetails implements UserDetails {
+public class MyWorkerDetails implements UserDetails {
 
     private final Worker worker;
 
-    public MyUserDetails(Worker worker) {
+    public MyWorkerDetails(Worker worker) {
         this.worker = worker;
     }
 

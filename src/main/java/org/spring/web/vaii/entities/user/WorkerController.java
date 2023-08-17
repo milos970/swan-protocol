@@ -25,10 +25,10 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Random;
 @Controller
-public class UsersController {
+public class WorkerController {
 
     @Autowired
-    private UsersService usersService;
+    private WorkerService workerService;
 
     @Autowired
     private ImageService imageService;
@@ -96,8 +96,8 @@ public class UsersController {
     @RequestMapping(value = "/page-b", method = RequestMethod.GET)
     public String showPageB(HttpSession session)
     {
-        session.setAttribute("rowsCount", this.usersService.getUserRepository().count());
-        session.setAttribute("rowsCountInc", this.usersService.getUserRepository().count() + 1);
+        session.setAttribute("rowsCount", this.workerService.getUserRepository().count());
+        session.setAttribute("rowsCountInc", this.workerService.getUserRepository().count() + 1);
 
 
 
@@ -109,7 +109,7 @@ public class UsersController {
     public ResponseEntity<Boolean> isEmail(@RequestParam("form3Example3cg") String form3Example3cg) {
 
 
-        if (this.usersService.loadUserByEmail(form3Example3cg) != null)
+        if (this.workerService.loadUserByEmail(form3Example3cg) != null)
         {
 
             return new ResponseEntity<Boolean>(false, HttpStatus.OK);
@@ -122,7 +122,7 @@ public class UsersController {
     @RequestMapping(value = "/check-username", method = RequestMethod.POST)
     public ResponseEntity<Boolean> isUsername(@RequestParam("form3Example1cg") String form3Example1cg) {
 
-        if (this.usersService.loadUserByUsername(form3Example1cg) != null)
+        if (this.workerService.loadUserByUsername(form3Example1cg) != null)
         {
 
             return new ResponseEntity<Boolean>(false, HttpStatus.OK);
@@ -136,7 +136,7 @@ public class UsersController {
             worker.setRole(Role.USER);
             worker.setPassword(worker.getPassword());
             worker.encode();
-            usersService.save(worker);
+            workerService.save(worker);
         return  "redirect:/";
     }
 
@@ -145,14 +145,14 @@ public class UsersController {
 
     @RequestMapping(value = "/worker/update/{id}", method = RequestMethod.GET)
     public String showUserForm(@PathVariable("id") long id, Model model) {
-        model.addAttribute("worker", this.usersService.getUser(id));
+        model.addAttribute("worker", this.workerService.getUser(id));
         return "update";
     }
 
     @RequestMapping(value = "/worker/delete/{id}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable("id") long id, Model model) {
 
-       this.usersService.delete(id);
+       this.workerService.delete(id);
         return  "redirect:/";
     }
 
@@ -202,7 +202,7 @@ public class UsersController {
     @RequestMapping(value = "/worker/update-worker/{id}", method = RequestMethod.POST)
     public String updateWorker(@PathVariable("id") long id, Model model, @Valid Worker worker, BindingResult result) {
 
-        Worker updatingWorker = this.usersService.getUser(id);
+        Worker updatingWorker = this.workerService.getUser(id);
 
         if (!worker.getPassword().equals("")) {
             updatingWorker.setPassword(worker.getPassword());
@@ -217,7 +217,7 @@ public class UsersController {
             updatingWorker.setEmail(worker.getEmail());
         }
 
-        this.usersService.save(updatingWorker);
+        this.workerService.save(updatingWorker);
         return  "redirect:/worker/home";
     }
 
@@ -228,7 +228,7 @@ public class UsersController {
     public String workerPage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("name",auth.getName());
-        MyUserDetails userDetails = (MyUserDetails)auth.getPrincipal();
+        MyWorkerDetails userDetails = (MyWorkerDetails)auth.getPrincipal();
         model.addAttribute("worker",userDetails.getWorker());
         if (this.occupied == 1) {
 
@@ -254,7 +254,7 @@ public class UsersController {
     @RequestMapping(value="/worker/update-page", method=RequestMethod.GET)
     public String updatePage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails userDetails = (MyUserDetails)auth.getPrincipal();
+        MyWorkerDetails userDetails = (MyWorkerDetails)auth.getPrincipal();
 
         model.addAttribute("worker", userDetails.getWorker());
         model.addAttribute("name",auth.getName());
@@ -265,7 +265,7 @@ public class UsersController {
     @RequestMapping(value="/worker/work-page/{id}", method=RequestMethod.GET)
     public String workPage(@PathVariable("id") long id,Model model, @Valid Worker worker, BindingResult result) {
         this.occupied = 1;
-        this.worker = this.usersService.getUser(id);
+        this.worker = this.workerService.getUser(id);
         return "work";
     }
 

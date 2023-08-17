@@ -9,29 +9,29 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UsersService implements UserDetailsService
+public class WorkerService implements UserDetailsService
 {
     @Autowired
-    UserRepository userRepository;
+    WorkerRepository workerRepository;
 
     public void save(Worker worker)
 {
-    this.userRepository.save(worker);
+    this.workerRepository.save(worker);
 }
 
     public Worker getUser(final long id)
     {
-        return this.userRepository.findById(id).get();
+        return this.workerRepository.findById(id).get();
     }
 
     public List<Worker> getAll()
     {
-        return (List<Worker>) this.userRepository.findAll();
+        return (List<Worker>) this.workerRepository.findAll();
     }
 
     public void delete(final long id)
     {
-        this.userRepository.deleteById(id);
+        this.workerRepository.deleteById(id);
     }
 
 
@@ -39,29 +39,29 @@ public class UsersService implements UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Worker worker = this.userRepository.findByUsername(username);
+        Worker worker = this.workerRepository.findByUsername(username);
 
         if (worker == null) {
             //throw new UsernameNotFoundException("not found");
             return null;
         }
-        return new MyUserDetails(worker);
+        return new MyWorkerDetails(worker);
     }
 
 
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
 
-        Worker worker = this.userRepository.findByEmail(email);
+        Worker worker = this.workerRepository.findByEmail(email);
 
         if (worker == null) {
             return null;
         }
-        return new MyUserDetails(worker);
+        return new MyWorkerDetails(worker);
     }
 
 
-    public UserRepository getUserRepository() {
-        return userRepository;
+    public WorkerRepository getUserRepository() {
+        return workerRepository;
     }
 }
 
