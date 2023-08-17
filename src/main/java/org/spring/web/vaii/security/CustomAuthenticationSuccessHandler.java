@@ -1,5 +1,6 @@
 package org.spring.web.vaii.security;
 
+import org.spring.web.vaii.Role;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -23,7 +24,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {
             String authorityName = grantedAuthority.getAuthority();
-            if (authorityName.equals("ADMIN")) {
+            if (authorityName.equals(Role.ADMIN.name())) {
                 // if the user is an ADMIN delegate to the adminSuccessHandler
                 this.adminSuccessHandler.onAuthenticationSuccess(request, response, authentication);
                 return;
