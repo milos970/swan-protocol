@@ -13,8 +13,13 @@ import javax.validation.Valid;
 @Controller
 public class ScoreController {
 
+
+    private final ScoreService scoreService;
+
     @Autowired
-    private ScoreService scoreService;
+    public ScoreController(ScoreService scoreService) {
+        this.scoreService = scoreService;
+    }
 
     @RequestMapping(value = "/admin/delete-score/{id}", method = RequestMethod.GET)
     public String deleteScore(@PathVariable("id") long id, Model model) {
