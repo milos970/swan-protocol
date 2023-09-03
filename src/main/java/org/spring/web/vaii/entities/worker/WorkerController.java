@@ -1,5 +1,6 @@
 package org.spring.web.vaii.entities.worker;
 
+import org.spring.web.vaii.AppService;
 import org.spring.web.vaii.Countdown;
 import org.spring.web.vaii.Role;
 import org.spring.web.vaii.entities.image.ImageService;
@@ -27,45 +28,28 @@ import java.util.Collection;
 import java.util.Random;
 @Controller
 public class WorkerController {
-
-
     private final WorkerService workerService;
-
-
     private final ImageService imageService;
-
-
     private final ScoreService scoreService;
+    private AppService appService;
 
     @Autowired
-    Countdown countdown;
-
-    private Worker worker;
-
-    private  int occupied = 0;
-
-
-    private final String NUMBERS = "4 8 15 16 23 42";
-
-    @Autowired
-    public WorkerController(WorkerService workerService, ImageService imageService, ScoreService scoreService) {
+    public WorkerController(WorkerService workerService, ImageService imageService, ScoreService scoreService, AppService appService) {
         this.workerService = workerService;
         this.imageService = imageService;
         this.scoreService = scoreService;
+        this.appService = appService;
     }
 
 
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+
+    @GetMapping("/")
     public String showHomePage(Model model)
     {
         model.addAttribute("worker", new Worker());
 
-        Calendar time = Calendar.getInstance();
-        int hour = time.get(Calendar.HOUR_OF_DAY);
-
-        
-        if (hour <= 18) {
+        if (this.appService.isEvening()) {
             model.addAttribute("videoPath",this.imageService.getImage(1).getPath());
             model.addAttribute("imagePathA",this.imageService.getImage(3).getPath());
             model.addAttribute("imagePathB",this.imageService.getImage(4).getPath());
@@ -78,23 +62,18 @@ public class WorkerController {
         return "index";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @GetMapping("/login")
     public String showLoginPage(Model model)
     {
         model.addAttribute("worker", new Worker());
-
-
         return "login";
     }
 
 
-    @RequestMapping(value = "/page-a", method = RequestMethod.GET)
+    @GetMapping("/page-a")
     public String showPageA(Model model)
     {
-        Calendar time = Calendar.getInstance();
-        int hour = time.get(Calendar.HOUR_OF_DAY);
-
-        if (hour <= 18) {
+        if (this.appService.isEvening()) {
             model.addAttribute("imagePathA",this.imageService.getImage(7).getPath());
             model.addAttribute("imagePathB",this.imageService.getImage(8).getPath());
         } else {
@@ -105,7 +84,7 @@ public class WorkerController {
         return "page_a";
     }
 
-    @RequestMapping(value = "/page-b", method = RequestMethod.GET)
+    @GetMapping("/page-b")
     public String showPageB(HttpSession session)
     {
         session.setAttribute("rowsCount", this.workerService.getUserRepository().count());
@@ -114,45 +93,27 @@ public class WorkerController {
         return "page_b";
     }
 
-    @RequestMapping(value = "/check-email", method = RequestMethod.POST)
-    public ResponseEntity<Boolean> isEmail(@RequestParam("form3Example3cg") String form3Example3cg) {
-
-
-        if (this.workerService.loadUserByEmail(form3Example3cg) != null)
-        {
-
-            return new ResponseEntity<>(false, HttpStatus.OK);
-
-        }
-
-        return new ResponseEntity<>(true, HttpStatus.OK);
+    @GetMapping("/check-email")
+    public ResponseEntity<Boolean> isEmail(@RequestParam("form3Example3cg") String form3Example3cg)
+    {
+        return new ResponseEntity<>(this.workerService.loadUserByEmail(form3Example3cg) != null, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/check-username", method = RequestMethod.POST)
-    public ResponseEntity<Boolean> isUsername(@RequestParam("form3Example1cg") String form3Example1cg) {
-
-        if (this.workerService.loadUserByUsername(form3Example1cg) != null)
-        {
-
-            return new ResponseEntity<>(false, HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(true, HttpStatus.OK);
+    @GetMapping("/check-username")
+    public ResponseEntity<Boolean> isUsername(@RequestParam("form3Example1cg") String form3Example1cg)
+    {
+        return new ResponseEntity<>(this.workerService.loadUserByUsername(form3Example1cg) != null, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/add-worker", method = RequestMethod.POST)
-    public String addUser(@Valid @ModelAttribute("worker") Worker worker, BindingResult bindingResult) {
-            worker.setRole(Role.USER);
-            worker.setPassword(worker.getPassword());
-            worker.encode();
-            workerService.save(worker);
+    @PostMapping("/add-worker")
+    public String addUser(@Valid @ModelAttribute("worker") Worker worker, BindingResult bindingResult)
+    {
+        this.workerService.save(worker);
         return  "redirect:/";
     }
 
 
-
-
-    @RequestMapping(value = "/worker/update/{id}", method = RequestMethod.GET)
+    @GetMapping("/worker/update/{id}")
     public String showUserForm(@PathVariable("id") long id, Model model) {
         model.addAttribute("worker", this.workerService.getUser(id));
         return "update";
@@ -160,7 +121,6 @@ public class WorkerController {
 
     @RequestMapping(value = "/worker/delete/{id}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable("id") long id, Model model) {
-
        this.workerService.delete(id);
         return  "redirect:/";
     }
@@ -168,7 +128,7 @@ public class WorkerController {
 
 
 
-    @RequestMapping(value = "/redirect", method = RequestMethod.GET)
+    @GetMapping("/redirect")
     public String choose() {
         Collection<? extends GrantedAuthority> authorities;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -184,75 +144,43 @@ public class WorkerController {
 
 
 
-    @RequestMapping(value = "/get-time", method = RequestMethod.POST)
+    @GetMapping("/get-time")
     public ResponseEntity<int[]> currentTime(@RequestParam("form3Example1cg") String form3Example1cg) {
-        return new ResponseEntity<int[]>(countdown.getTime(), HttpStatus.OK);
+        return new ResponseEntity<int[]>(this.appService.getTime(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/check-code", method = RequestMethod.POST)
-    public ResponseEntity<Boolean> checkCode(@RequestParam("form3Example1cg") String form3Example1cg) {
-
-
-        String NUMBERS = "4 8 15 16 23 42";
-        if (NUMBERS.equals(form3Example1cg)) {
-            countdown.reset();
-            Score score = this.scoreService.getLastScore();
-            score.addSuccess();
-            this.scoreService.save(score);
-
-        }
+    @GetMapping("/check-code")
+    public ResponseEntity<Boolean> checkCode(@RequestParam("form3Example1cg") String form3Example1cg)
+    {
+        this.appService.codeVerify(form3Example1cg);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
 
-
-
-    //worker
-
-    @RequestMapping(value = "/worker/update-worker/{id}", method = RequestMethod.POST)
-    public String updateWorker(@PathVariable("id") long id, Model model, @Valid Worker worker, BindingResult result) {
-
-        Worker updatingWorker = this.workerService.getUser(id);
-
-        if (!worker.getPassword().equals("")) {
-            updatingWorker.setPassword(worker.getPassword());
-            updatingWorker.encode();
-        }
-
-        if (!worker.getUsername().equals("")) {
-            updatingWorker.setUsername(worker.getUsername());
-        }
-
-        if (!worker.getEmail().equals("")) {
-            updatingWorker.setEmail(worker.getEmail());
-        }
-
-        this.workerService.save(updatingWorker);
+    @PatchMapping("/worker/update-worker/{id}")
+    public String updateWorker(@PathVariable("id") long id, Model model, @Valid Worker worker, BindingResult result)
+    {
+        this.workerService.update(id,worker);
         return  "redirect:/worker/home";
     }
 
 
-
-
-    @RequestMapping(value = "/worker/home", method = RequestMethod.GET)
+    @GetMapping(value = "/worker/home")
     public String workerPage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("name",auth.getName());
         MyWorkerDetails userDetails = (MyWorkerDetails)auth.getPrincipal();
         model.addAttribute("worker",userDetails.getWorker());
-        if (this.occupied == 1) {
 
-            model.addAttribute("occupied",1);
+        if (this.appService.getLoggedWorker() == null || (this.appService.getTime()[0] == 0) || (userDetails.getWorker().getId() ==  this.appService.getLoggedWorker().getId())) {
+            return "worker";
         } else {
-            model.addAttribute("occupied",0);
-
+            return "redirect:/";
         }
 
-
-        return "worker";
     }
 
-    @RequestMapping(value="/worker/logout", method=RequestMethod.GET)
+    @GetMapping(value="/worker/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null){
@@ -261,7 +189,7 @@ public class WorkerController {
         return "redirect:/";
     }
 
-    @RequestMapping(value="/worker/update-page", method=RequestMethod.GET)
+    @GetMapping("/worker/update-page")
     public String updatePage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         MyWorkerDetails userDetails = (MyWorkerDetails)auth.getPrincipal();
@@ -272,39 +200,18 @@ public class WorkerController {
         return "update-worker";
     }
 
-    @RequestMapping(value="/worker/work-page/{id}", method=RequestMethod.GET)
-    public String workPage(@PathVariable("id") long id,Model model, @Valid Worker worker, BindingResult result) {
-        this.occupied = 1;
-        this.worker = this.workerService.getUser(id);
+    @GetMapping("/worker/work-page/{id}")
+    public String workPage(@PathVariable("id") long id, @Valid Worker worker, BindingResult result) //result needs to be here (IDKW)
+    {
+        this.appService.setLoggedWorker(this.workerService.getUser(id));
         return "work";
     }
 
 
-    @RequestMapping(value = "/is-finished", method = RequestMethod.GET)
-    public ResponseEntity<Integer> isFinished() {
-
-        int finished = 0;
-        if (countdown.getTime()[0] == 0) {
-
-            finished = 1;
-        }
-
-        if (countdown.getTime()[0] == 0 && countdown.getTime()[1] == 0) {
-            Score score = this.scoreService.getLastScore();
-            if(this.worker == null) {
-                score.setWorker_name("Nobody s fault");
-            } else {
-                score.setWorker_name(this.worker.getUsername());
-            }
-            
-            this.scoreService.save(score);
-            finished = 2;
-            for (int i = 1; i <= 5; ++i) {
-                this.imageService.getImage(i).setPath("dsafdsafd");
-            }
-
-        }
-        return new ResponseEntity<Integer>(finished, HttpStatus.OK);
+    @GetMapping("/is-finished")
+    public ResponseEntity<Boolean> isFinished()
+    {
+        return new ResponseEntity<Boolean>(this.appService.isFinished(), HttpStatus.OK);
     }
 
 

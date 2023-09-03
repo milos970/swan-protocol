@@ -51,11 +51,11 @@ public class WebConfig extends WebSecurityConfigurerAdapter
                 .headers().frameOptions().disable();
 
         // It is generally BAD to disable CSRF protection!
-        ;
+
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 

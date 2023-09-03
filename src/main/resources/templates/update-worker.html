@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -51,7 +52,7 @@
                     <div class="card-body p-5">
                         <h2 class="text-uppercase text-center mb-5">Update</h2>
 
-                        <form id="form" th:action="@{/worker/update-worker/{id}(id=${worker.id})}" th:object="${worker}"  method="post">
+                        <form id="form" th:action="@{/worker/update-worker/{id}(id=${worker.id})}" th:object="${worker}"  method="patch">
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form3Example1cg">Name</label>

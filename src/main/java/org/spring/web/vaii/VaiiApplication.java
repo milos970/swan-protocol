@@ -1,6 +1,5 @@
 package org.spring.web.vaii;
 
-import org.spring.web.vaii.config.AppConfig;
 import org.spring.web.vaii.entities.image.Image;
 import org.spring.web.vaii.entities.image.ImageRepository;
 import org.spring.web.vaii.entities.score.Score;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -43,7 +41,7 @@ public class VaiiApplication implements CommandLineRunner {
 
 	@Bean
 	public Countdown countdown() {
-		Countdown countdown = new Countdown(5,59);
+		Countdown countdown = new Countdown(1,50);
 		countdown.start();
 		return countdown;
 	}

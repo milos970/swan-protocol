@@ -1,9 +1,11 @@
 package org.spring.web.vaii.entities.worker;
 
+import org.spring.web.vaii.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,13 +13,43 @@ import java.util.List;
 @Service
 public class WorkerService implements UserDetailsService
 {
-    @Autowired
     WorkerRepository workerRepository;
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    public WorkerService(WorkerRepository workerRepository, BCryptPasswordEncoder bCryptPasswordEncoder)
+    {
+        this.workerRepository = workerRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     public void save(Worker worker)
-{
-    this.workerRepository.save(worker);
-}
+    {
+        worker.setRole(Role.USER);
+        worker.setPassword(this.bCryptPasswordEncoder.encode(worker.getPassword()));
+        this.workerRepository.save(worker);
+    }
+
+
+    public void update(long id, Worker worker)
+    {
+        Worker updatingWorker = this.workerRepository.findById(id).get();
+
+        if (!worker.getPassword().equals("")) {
+            updatingWorker.setPassword(worker.getPassword());
+
+        }
+
+        if (!worker.getUsername().equals("")) {
+            updatingWorker.setUsername(worker.getUsername());
+        }
+
+        if (!worker.getEmail().equals("")) {
+            updatingWorker.setEmail(worker.getEmail());
+        }
+
+        this.workerRepository.save(updatingWorker);
+    }
 
     public Worker getUser(final long id)
     {

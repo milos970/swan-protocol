@@ -1,6 +1,5 @@
 package org.spring.web.vaii;
 
-import org.springframework.stereotype.Component;
 
 public class Countdown extends Thread {
     private final int[] time;
@@ -28,7 +27,6 @@ public class Countdown extends Thread {
                 this.time[0] = minutes;
                 for (int seconds = this.seconds; seconds >= 0 && !this.stopRunning; --seconds )
                 {
-                    System.out.println(54454);
                     this.time[1] = seconds;
                     try {
                         Thread.sleep(1000);

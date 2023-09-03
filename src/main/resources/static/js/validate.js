@@ -33,7 +33,7 @@ function something() {
     jQuery.ajax({
         url: "/get-time",
         data: 'form3Example1cg=' + $("#form3Example1cg").val(),
-        type: "POST",
+        type: "GET",
         success: function (data) {
 
             times[0] = data[0];
@@ -81,7 +81,7 @@ function checkPassword() {
     jQuery.ajax({
         url: "/check-code",
         data: 'form3Example1cg=' + $("#password").val(),
-        type: "POST",
+        type: "GET",
         success: function (data) {
 
             if (data) {
@@ -114,15 +114,11 @@ function ajax() {
         success: function (data) {
 
 
-            if (data == 1) {
+            if (data == true) {
                 shakeAll();
             }
 
-            if (data == 2) {
-                shakeAll();
-            }
-
-            if (data == 0) {
+            if (data == false) {
                 unshakeAll();
             }
 
@@ -200,9 +196,9 @@ function usernameValidation() {
     jQuery.ajax({
         url: "/check-username",
         data: 'form3Example1cg=' + $("#form3Example1cg").val(),
-        type: "POST",
+        type: "GET",
         success: function (data) {
-            if (!data) {
+            if (data == true) {
                 usernameHint.innerHTML = "The username already exists!";
                 validUsername = false;
                 canSubmit();
@@ -300,9 +296,9 @@ function emailValidation() {
 
         url: "/check-email",
         data: 'form3Example3cg=' + $("#form3Example3cg").val(),
-        type: "POST",
+        type: "GET",
         success: function (data) {
-            if (!data) {
+            if (data == true) {
 
                 emailHint.innerHTML = "The email already exists!";
                 validEmail = false;

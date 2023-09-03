@@ -86,11 +86,6 @@ public class Worker {
         this.password = password;
     }
 
-    public void encode() {
-        BCryptPasswordEncoder b = new BCryptPasswordEncoder(10, new SecureRandom());
-        this.password = b.encode(this.password);
-    }
-
 
     public String getRole() {
         return this.role;
