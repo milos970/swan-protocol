@@ -1,8 +1,4 @@
 
-
-
-
-
 const time = document.getElementById("countdown");
 
 times =[];
