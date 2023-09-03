@@ -50,10 +50,12 @@ public class WorkerController {
         model.addAttribute("worker", new Worker());
 
         if (this.appService.isEvening()) {
+            System.out.println("DEN");
             model.addAttribute("videoPath",this.imageService.getImage(1).getPath());
             model.addAttribute("imagePathA",this.imageService.getImage(3).getPath());
             model.addAttribute("imagePathB",this.imageService.getImage(4).getPath());
         } else {
+            System.out.println("NOC");
             model.addAttribute("videoPath",this.imageService.getImage(2).getPath());
             model.addAttribute("imagePathA",this.imageService.getImage(5).getPath());
             model.addAttribute("imagePathB",this.imageService.getImage(6).getPath());
@@ -81,7 +83,7 @@ public class WorkerController {
             model.addAttribute("imagePathB",this.imageService.getImage(10).getPath());
         }
 
-        return "page_a";
+        return "page-a";
     }
 
     @GetMapping("/page-b")
@@ -90,7 +92,7 @@ public class WorkerController {
         session.setAttribute("rowsCount", this.workerService.getUserRepository().count());
         session.setAttribute("rowsCountInc", this.workerService.getUserRepository().count() + 1);
 
-        return "page_b";
+        return "page-b";
     }
 
     @GetMapping("/check-email")
