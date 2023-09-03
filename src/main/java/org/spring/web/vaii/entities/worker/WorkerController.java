@@ -27,19 +27,31 @@ import java.util.Random;
 @Controller
 public class WorkerController {
 
-    @Autowired
-    private WorkerService workerService;
 
-    @Autowired
-    private ImageService imageService;
+    private final WorkerService workerService;
 
-    @Autowired
-    private ScoreService scoreService;
+
+    private final ImageService imageService;
+
+
+    private final ScoreService scoreService;
 
     private Worker worker;
 
     private  int occupied = 0;
 
+<<<<<<< HEAD
+=======
+    private final String NUMBERS = "4 8 15 16 23 42";
+
+    @Autowired
+    public WorkerController(WorkerService workerService, ImageService imageService, ScoreService scoreService) {
+        this.workerService = workerService;
+        this.imageService = imageService;
+        this.scoreService = scoreService;
+    }
+
+>>>>>>> 6c18a83df83436ceaf1d224f355ba6b28f73737e
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showHomePage(Model model)
