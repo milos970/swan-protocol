@@ -1,5 +1,6 @@
 package org.spring.web.vaii;
 
+import org.spring.web.vaii.config.AppConfig;
 import org.spring.web.vaii.entities.image.Image;
 import org.spring.web.vaii.entities.image.ImageRepository;
 import org.spring.web.vaii.entities.score.Score;
@@ -10,6 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.security.SecureRandom;
 
 @SpringBootApplication
 public class VaiiApplication implements CommandLineRunner {
@@ -26,7 +32,20 @@ public class VaiiApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 
 		SpringApplication.run(VaiiApplication.class, args);
-		Countdown.getInstance().start();
+
+
+	}
+
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder(10, new SecureRandom());
+	}
+
+	@Bean
+	public Countdown countdown() {
+		Countdown countdown = new Countdown(5,59);
+		countdown.start();
+		return countdown;
 	}
 
 
@@ -39,6 +58,13 @@ public class VaiiApplication implements CommandLineRunner {
 		worker.setEmail("admin@gmail.com");
 		worker.setPassword("$2a$12$SPWCRvcC/VTtj59xBSAvwOEYpw2xW93rpJpHR6L2P84vshqbtqbgK"); //Password/123
 		worker.setRole(Role.ADMIN);
+		this.workerRepository.save(worker);
+
+		worker = new Worker();
+		worker.setUsername("Milos");
+		worker.setEmail("mil@gmail.com");
+		worker.setPassword("$2a$12$T0ArFuiaH17882wqOE4GU./0z4pUdhzyUpy3aJVVz98I/ndBR.rCC");
+		worker.setRole(Role.USER);
 		this.workerRepository.save(worker);
 
 		Score score = new Score();

@@ -6,6 +6,7 @@ import org.spring.web.vaii.entities.image.ImageService;
 import org.spring.web.vaii.entities.score.Score;
 import org.spring.web.vaii.entities.score.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -36,12 +37,14 @@ public class WorkerController {
 
     private final ScoreService scoreService;
 
+    @Autowired
+    Countdown countdown;
+
     private Worker worker;
 
     private  int occupied = 0;
 
-<<<<<<< HEAD
-=======
+
     private final String NUMBERS = "4 8 15 16 23 42";
 
     @Autowired
@@ -51,7 +54,7 @@ public class WorkerController {
         this.scoreService = scoreService;
     }
 
->>>>>>> 6c18a83df83436ceaf1d224f355ba6b28f73737e
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showHomePage(Model model)
@@ -107,9 +110,6 @@ public class WorkerController {
     {
         session.setAttribute("rowsCount", this.workerService.getUserRepository().count());
         session.setAttribute("rowsCountInc", this.workerService.getUserRepository().count() + 1);
-
-
-
 
         return "page_b";
     }
@@ -186,7 +186,7 @@ public class WorkerController {
 
     @RequestMapping(value = "/get-time", method = RequestMethod.POST)
     public ResponseEntity<int[]> currentTime(@RequestParam("form3Example1cg") String form3Example1cg) {
-        return new ResponseEntity<int[]>(Countdown.getInstance().getTime(), HttpStatus.OK);
+        return new ResponseEntity<int[]>(countdown.getTime(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/check-code", method = RequestMethod.POST)
@@ -195,7 +195,7 @@ public class WorkerController {
 
         String NUMBERS = "4 8 15 16 23 42";
         if (NUMBERS.equals(form3Example1cg)) {
-            Countdown.getInstance().reset();
+            countdown.reset();
             Score score = this.scoreService.getLastScore();
             score.addSuccess();
             this.scoreService.save(score);
@@ -284,12 +284,12 @@ public class WorkerController {
     public ResponseEntity<Integer> isFinished() {
 
         int finished = 0;
-        if (Countdown.getInstance().getTime()[0] == 0) {
+        if (countdown.getTime()[0] == 0) {
 
             finished = 1;
         }
 
-        if (Countdown.getInstance().getTime()[0] == 0 && Countdown.getInstance().getTime()[1] == 0) {
+        if (countdown.getTime()[0] == 0 && countdown.getTime()[1] == 0) {
             Score score = this.scoreService.getLastScore();
             if(this.worker == null) {
                 score.setWorker_name("Nobody s fault");

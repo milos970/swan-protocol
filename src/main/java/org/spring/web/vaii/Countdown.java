@@ -1,22 +1,19 @@
 package org.spring.web.vaii;
 
+import org.springframework.stereotype.Component;
+
 public class Countdown extends Thread {
     private final int[] time;
-
-    private static Countdown INSTANCE;
-
     private boolean stopRunning;
 
-    private Countdown() {
+    private final int minutes;
+    private final int seconds;
+
+    public Countdown(int minutes, int seconds)
+    {
         this.time = new int[2];
-
-    }
-
-    public static Countdown getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Countdown();
-        }
-        return INSTANCE;
+        this.minutes = minutes;
+        this.seconds = seconds;
     }
 
     @Override
@@ -26,11 +23,12 @@ public class Countdown extends Thread {
         while ( true) {
 
             this.stopRunning = false;
-            for (int minutes = 1; minutes >= 0 && !this.stopRunning; --minutes)
+            for (int minutes = this.minutes; minutes >= 0 && !this.stopRunning; --minutes)
             {
                 this.time[0] = minutes;
-                for (int seconds = 59; seconds >= 0 && !this.stopRunning; --seconds )
+                for (int seconds = this.seconds; seconds >= 0 && !this.stopRunning; --seconds )
                 {
+                    System.out.println(54454);
                     this.time[1] = seconds;
                     try {
                         Thread.sleep(1000);
