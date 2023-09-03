@@ -32,8 +32,7 @@ public class VaiiApplication implements CommandLineRunner {
 
 
 	@Override
-	public void run(String... args) throws Exception
-	{
+	public void run(String... args) {
 
 		Worker worker = new Worker();
 		worker.setUsername("Admin");

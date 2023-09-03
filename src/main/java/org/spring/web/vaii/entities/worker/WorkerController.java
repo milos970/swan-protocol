@@ -40,9 +40,6 @@ public class WorkerController {
 
     private  int occupied = 0;
 
-    private final String NUMBERS = "4 8 15 16 23 42";
-
-
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showHomePage(Model model)
@@ -112,11 +109,11 @@ public class WorkerController {
         if (this.workerService.loadUserByEmail(form3Example3cg) != null)
         {
 
-            return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+            return new ResponseEntity<>(false, HttpStatus.OK);
 
         }
 
-        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/check-username", method = RequestMethod.POST)
@@ -125,10 +122,10 @@ public class WorkerController {
         if (this.workerService.loadUserByUsername(form3Example1cg) != null)
         {
 
-            return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+            return new ResponseEntity<>(false, HttpStatus.OK);
         }
 
-        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/add-worker", method = RequestMethod.POST)
@@ -184,6 +181,7 @@ public class WorkerController {
     public ResponseEntity<Boolean> checkCode(@RequestParam("form3Example1cg") String form3Example1cg) {
 
 
+        String NUMBERS = "4 8 15 16 23 42";
         if (NUMBERS.equals(form3Example1cg)) {
             Countdown.getInstance().reset();
             Score score = this.scoreService.getLastScore();
@@ -289,8 +287,6 @@ public class WorkerController {
             
             this.scoreService.save(score);
             finished = 2;
-            Random rand = new Random();
-            int number = rand.nextInt(5) + 1;
             for (int i = 1; i <= 5; ++i) {
                 this.imageService.getImage(i).setPath("dsafdsafd");
             }

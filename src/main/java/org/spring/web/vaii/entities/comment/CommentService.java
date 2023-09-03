@@ -17,18 +17,9 @@ public class CommentService  {
         this.commentRepository.save(comment);
     }
 
-    public Comment getUser(final long id)
-    {
-        return this.commentRepository.findById(id).get();
-    }
-
     public List<Comment> getAll()
     {
-        return (List<Comment>) this.commentRepository.findAll();
+        return this.commentRepository.findAll();
     }
 
-    public void delete(final long id)
-    {
-        this.commentRepository.deleteById(id);
-    }
 }

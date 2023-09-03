@@ -28,16 +28,8 @@ public class Comment {
     @Column(name  = "date")
     private String creationDateTime;
 
-    public String getCreationDateTime() {
-        return creationDateTime;
-    }
-
     public void setCreationDateTime(String creationDateTime) {
         this.creationDateTime = creationDateTime;
-    }
-
-    public Long getCommentId() {
-        return id;
     }
 
     @ManyToOne()

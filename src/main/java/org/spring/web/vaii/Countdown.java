@@ -1,7 +1,7 @@
 package org.spring.web.vaii;
 
 public class Countdown extends Thread {
-    private int[] time;
+    private final int[] time;
 
     private static Countdown INSTANCE;
 
@@ -26,10 +26,10 @@ public class Countdown extends Thread {
         while ( true) {
 
             this.stopRunning = false;
-            for (int minutes = 1; minutes >= 0 && this.stopRunning == false; --minutes)
+            for (int minutes = 1; minutes >= 0 && !this.stopRunning; --minutes)
             {
                 this.time[0] = minutes;
-                for (int seconds = 59; seconds >= 0 && this.stopRunning == false; --seconds )
+                for (int seconds = 59; seconds >= 0 && !this.stopRunning; --seconds )
                 {
                     this.time[1] = seconds;
                     try {
@@ -42,7 +42,7 @@ public class Countdown extends Thread {
                 }
             }
 
-            if (this.stopRunning == false) {
+            if (!this.stopRunning) {
                 return;
             }
 
