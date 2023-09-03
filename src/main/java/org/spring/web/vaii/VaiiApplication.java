@@ -65,6 +65,13 @@ public class VaiiApplication implements CommandLineRunner {
 		worker.setRole(Role.USER);
 		this.workerRepository.save(worker);
 
+		worker = new Worker();
+		worker.setUsername("Majo");
+		worker.setEmail("majo@gmail.com");
+		worker.setPassword("$2a$12$rB0SOchw4up/3CDSjlDefOEwnzdqGVI0VQ8BWioL.YIcKm1io7VhW");
+		worker.setRole(Role.USER);
+		this.workerRepository.save(worker);
+
 		Score score = new Score();
 		this.scoreRepository.save(score);
 

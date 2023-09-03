@@ -52,7 +52,7 @@
                     <div class="card-body p-5">
                         <h2 class="text-uppercase text-center mb-5">Update</h2>
 
-                        <form id="form" th:action="@{/worker/update-worker/{id}(id=${worker.id})}" th:object="${worker}"  method="patch">
+                        <form id="form" th:action="@{/worker/update-worker/{id}(id=${worker.id})}" th:object="${worker}"  method="post">
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form3Example1cg">Name</label>
@@ -105,7 +105,7 @@
 
 
                             <div class="d-flex justify-content-center">
-                                <button class="btn btn-outline-primary btn-lg px-5" id="submitButton" type="submit"
+                                <button class="btn btn-outline-primary btn-lg px-5" id="submitBut" type="submit"
                                         value="Submit">Create
                                 </button>
                             </div>

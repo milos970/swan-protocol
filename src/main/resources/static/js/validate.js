@@ -90,6 +90,8 @@ function checkPassword() {
         },
     });
 
+    $("#password").val() = '';
+
 }
 
 

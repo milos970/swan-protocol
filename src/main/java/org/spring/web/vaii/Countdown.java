@@ -6,7 +6,7 @@ public class Countdown extends Thread {
     private boolean stopRunning;
 
     private final int minutes;
-    private final int seconds;
+    private int seconds;
 
     public Countdown(int minutes, int seconds)
     {
@@ -36,6 +36,7 @@ public class Countdown extends Thread {
 
 
                 }
+                this.seconds = 59;
             }
 
             if (!this.stopRunning) {

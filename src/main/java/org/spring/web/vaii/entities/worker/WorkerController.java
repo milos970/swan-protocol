@@ -159,7 +159,7 @@ public class WorkerController {
     }
 
 
-    @PatchMapping("/worker/update-worker/{id}")
+    @PostMapping("/worker/update-worker/{id}")
     public String updateWorker(@PathVariable("id") long id, Model model, @Valid Worker worker, BindingResult result)
     {
         this.workerService.update(id,worker);
@@ -174,7 +174,8 @@ public class WorkerController {
         MyWorkerDetails userDetails = (MyWorkerDetails)auth.getPrincipal();
         model.addAttribute("worker",userDetails.getWorker());
 
-        if (this.appService.getLoggedWorker() == null || (this.appService.getTime()[0] == 0) || (userDetails.getWorker().getId() ==  this.appService.getLoggedWorker().getId())) {
+        if (this.appService.getLoggedWorker() == null || (this.appService.getTime()[0] == 0) ||
+                (userDetails.getWorker().getId() ==  this.appService.getLoggedWorker().getId())) {
             return "worker";
         } else {
             return "redirect:/";
