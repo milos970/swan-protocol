@@ -1,5 +1,5 @@
 <h1>VAII</h1>
-<h2>Popis</h2>
+<h2>Description</h2>
 <p>
  <p>Web aplikácia patrične simulujúca reálnu entitu v podobe ostrova. Chod ostrova zabezpečujú registrovaní pracovníci, ktorí po prihlásení zadávajú číselnú kombináciu v danom časovom intervale. V prípade, že časovač prekročí určenú hranicu, stránka začne lagovať. Po začatí plynutia poslednej minúty, je umožnené sa prihlásiť ďalším pracovníkom a odpočet obnoviť. V opačnom prípade sa stránka znefunkční.</p>
   <ul>
@@ -7,20 +7,20 @@
     <li>Client side validácia zabezpečená vlastným JavaScriptom</li>
     <li>Server side validácia zabezpečená vlastným</li>
     <li>Jednoduché forum pre komunikáciu pracovníkov</li>
-    <li>Implementácia Ajaxu</li>
+    <li>Ajax implementation</li>
     <li>Implementácia CRUD operácii</li>
-    <li>Využitie worker API</li>
+    <li>Implementation of worker API</li>
     <li>Zabezpečenie SQL injection s využitím JPA</li>
     <li>Zabezpečenie hashingu a saltingu s využitím generátora bcrypt</li>
   </ul>
 </p>
 <h2>Požiadavky na spustenie</h2>
     <ul>
-      <li>Java Runtime Environment 8</li>
+      <li>JDK 8</li>
       <li>MySQL</li>
     </ul>
 
-<h2>Jazyky & Frameworky & Nástroje</h2>
+<h2>Languages & Frameworks & Tools</h2>
 <ul>
   <li>Spring Boot</li>
     <ul>
