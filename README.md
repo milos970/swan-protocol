@@ -14,7 +14,7 @@
     <li>Zabezpečenie hashingu a saltingu s využitím generátora bcrypt</li>
   </ul>
 </p>
-<h2>Požiadavky na spustenie</h2>
+<h2>Requirements</h2>
     <ul>
       <li>JDK 8</li>
       <li>MySQL</li>
