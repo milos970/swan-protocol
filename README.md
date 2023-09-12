@@ -3,12 +3,12 @@
 <p>
  <p>Web aplikácia patrične simulujúca reálnu entitu v podobe ostrova. Chod ostrova zabezpečujú registrovaní pracovníci, ktorí po prihlásení zadávajú číselnú kombináciu v danom časovom intervale. V prípade, že časovač prekročí určenú hranicu, stránka začne lagovať. Po začatí plynutia poslednej minúty, je umožnené sa prihlásiť ďalším pracovníkom a odpočet obnoviť. V opačnom prípade sa stránka znefunkční.</p>
   <ul>
-    <li>Dynamicka zmena stránky počas dňa a noci</li>
-    <li>Client side validácia zabezpečená vlastným JavaScriptom</li>
+    <li>Dynamic change </li>
+    <li>Custom client side validation script</li>
     <li>Server side validácia zabezpečená vlastným</li>
     <li>Jednoduché forum pre komunikáciu pracovníkov</li>
     <li>Ajax implementation</li>
-    <li>Implementácia CRUD operácii</li>
+    <li>CRUD implementation</li>
     <li>Implementation of worker API</li>
     <li>Zabezpečenie SQL injection s využitím JPA</li>
     <li>Zabezpečenie hashingu a saltingu s využitím generátora bcrypt</li>
