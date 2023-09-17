@@ -1,17 +1,16 @@
 <h1>VAII</h1>
 <h2>Description</h2>
 <p>
- <p>Web aplikácia patrične simulujúca reálnu entitu v podobe ostrova. Chod ostrova zabezpečujú registrovaní pracovníci, ktorí po prihlásení zadávajú číselnú kombináciu v danom časovom intervale. V prípade, že časovač prekročí určenú hranicu, stránka začne lagovať. Po začatí plynutia poslednej minúty, je umožnené sa prihlásiť ďalším pracovníkom a odpočet obnoviť. V opačnom prípade sa stránka znefunkční.</p>
+ <p>Web application appropriately simulating a real entity in the form of an island. The operation of the island is ensured by registered workers who, 
+  after logging in, enter a numerical combination in the given time interval. If the timer exceeds the specified limit, the page will start to lag. After the last minute starts to pass, it is possible for other workers to log in and resume the deduction. Otherwise, the website will be unable to being accessed.</p>
   <ul>
     <li>Dynamic change </li>
     <li>Custom client side validation script</li>
-    <li>Server side validácia zabezpečená vlastným</li>
-    <li>Jednoduché forum pre komunikáciu pracovníkov</li>
+    <li>Server side validation</li>
+    <li>Simple forum for communication between workers</li>
     <li>Ajax implementation</li>
     <li>CRUD implementation</li>
     <li>Implementation of worker API</li>
-    <li>Zabezpečenie SQL injection s využitím JPA</li>
-    <li>Zabezpečenie hashingu a saltingu s využitím generátora bcrypt</li>
   </ul>
 </p>
 <h2>Requirements</h2>
@@ -25,9 +24,9 @@
   <li>Spring Boot</li>
     <ul>
       <li>Thymeleaf</li>
-      <li>Spring Data</li>
+      <li>Hibernate</li>
       <li>Spring Security</li>
-      <li>Spring Web MVC</li>
+      <li>MVC architecture</li>
     </ul>
   <li>HTML</li>
   <li>CSS</li>
