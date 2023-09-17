@@ -1,7 +1,7 @@
 <h1>VAII</h1>
 <h2>Description</h2>
 <p>
- <p>As a fan of the tv show The Lost and with the thrive to dig into the web development, I decided to build a web application partially simulating the functioning of the island. It is ensured by registered workers who, 
+ <p>As a fan of the tv show The Lost, I decided to build a web application partially simulating the functioning of the island. It is ensured by registered workers who, 
   after logging in, enter specific numerical combination in the given time interval. If the timer exceeds the specified limit, the page will start to lag. After the last minute starts to pass, it is possible for other workers to log in and resume the countdown. Otherwise, the website will become non-functional.</p>
   <ul>
     <li>Dynamic change of the theme based on the daytime</li>
