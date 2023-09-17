@@ -1,13 +1,13 @@
 <h1>VAII</h1>
 <h2>Description</h2>
 <p>
- <p>Web application appropriately simulating a real entity in the form of an island. The operation of the island is ensured by registered workers who, 
-  after logging in, enter a numerical combination in the given time interval. If the timer exceeds the specified limit, the page will start to lag. After the last minute starts to pass, it is possible for other workers to log in and resume the deduction. Otherwise, the website will be unable to being accessed.</p>
+ <p>As a fan of the tv show The Lost and with the thrive to dig into the web development, I decided to build a web application partialy simulating functioning of the island. It is ensured by registered workers who, 
+  after logging in, enter specific numerical combination in the given time interval. If the timer exceeds the specified limit, the page will start to lag. After the last minute starts to pass, it is possible for other workers to log in and resume the countdown. Otherwise, the website will become non-functional.</p>
   <ul>
-    <li>Dynamic change </li>
+    <li>Dynamic change of the theme based on the daytime</li>
     <li>Custom client side validation script</li>
     <li>Server side validation</li>
-    <li>Simple forum for communication between workers</li>
+    <li>Simple forum for communication among workers</li>
     <li>Ajax implementation</li>
     <li>CRUD implementation</li>
     <li>Implementation of worker API</li>
