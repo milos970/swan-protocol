@@ -1,6 +1,8 @@
-package org.spring.web.vaii.entities.image;
+package org.spring.web.vaii.services;
 
 
+import org.spring.web.vaii.entities.image.Image;
+import org.spring.web.vaii.repositories.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

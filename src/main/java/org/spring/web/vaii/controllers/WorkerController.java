@@ -1,13 +1,12 @@
-package org.spring.web.vaii.entities.worker;
+package org.spring.web.vaii.controllers;
 
-import org.spring.web.vaii.AppService;
-import org.spring.web.vaii.Countdown;
-import org.spring.web.vaii.Role;
-import org.spring.web.vaii.entities.image.ImageService;
-import org.spring.web.vaii.entities.score.Score;
-import org.spring.web.vaii.entities.score.ScoreService;
+import org.spring.web.vaii.services.AppService;
+import org.spring.web.vaii.entities.worker.MyWorkerDetails;
+import org.spring.web.vaii.entities.worker.Worker;
+import org.spring.web.vaii.services.ImageService;
+import org.spring.web.vaii.services.ScoreService;
+import org.spring.web.vaii.services.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -23,9 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.Random;
+
 @Controller
 public class WorkerController {
     private final WorkerService workerService;
@@ -50,12 +48,10 @@ public class WorkerController {
         model.addAttribute("worker", new Worker());
 
         if (this.appService.isEvening()) {
-            System.out.println("DEN");
             model.addAttribute("videoPath",this.imageService.getImage(1).getPath());
             model.addAttribute("imagePathA",this.imageService.getImage(3).getPath());
             model.addAttribute("imagePathB",this.imageService.getImage(4).getPath());
         } else {
-            System.out.println("NOC");
             model.addAttribute("videoPath",this.imageService.getImage(2).getPath());
             model.addAttribute("imagePathA",this.imageService.getImage(5).getPath());
             model.addAttribute("imagePathB",this.imageService.getImage(6).getPath());

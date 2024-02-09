@@ -1,5 +1,7 @@
-package org.spring.web.vaii.entities.score;
+package org.spring.web.vaii.services;
 
+import org.spring.web.vaii.entities.score.Score;
+import org.spring.web.vaii.repositories.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

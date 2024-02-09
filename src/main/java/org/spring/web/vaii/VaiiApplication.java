@@ -1,29 +1,26 @@
 package org.spring.web.vaii;
 
 import org.spring.web.vaii.entities.image.Image;
-import org.spring.web.vaii.entities.image.ImageRepository;
+import org.spring.web.vaii.repositories.ImageRepository;
 import org.spring.web.vaii.entities.score.Score;
-import org.spring.web.vaii.entities.score.ScoreRepository;
+import org.spring.web.vaii.repositories.ScoreRepository;
 import org.spring.web.vaii.entities.worker.Worker;
-import org.spring.web.vaii.entities.worker.WorkerRepository;
+import org.spring.web.vaii.repositories.WorkerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import java.security.SecureRandom;
 
 @SpringBootApplication
 public class VaiiApplication implements CommandLineRunner {
 	@Autowired
 	ScoreRepository scoreRepository;
-
 	@Autowired
 	ImageRepository imageRepository;
-
-
 	@Autowired
 	WorkerRepository workerRepository;
 
@@ -34,16 +31,18 @@ public class VaiiApplication implements CommandLineRunner {
 
 	}
 
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder(10, new SecureRandom());
-	}
+
 
 	@Bean
 	public Countdown countdown() {
 		Countdown countdown = new Countdown(1,50);
 		countdown.start();
 		return countdown;
+	}
+
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder(10, new SecureRandom());
 	}
 
 

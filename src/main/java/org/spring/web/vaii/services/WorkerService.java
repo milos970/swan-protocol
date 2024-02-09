@@ -1,11 +1,14 @@
-package org.spring.web.vaii.entities.worker;
+package org.spring.web.vaii.services;
 
 import org.spring.web.vaii.Role;
+import org.spring.web.vaii.entities.worker.MyWorkerDetails;
+import org.spring.web.vaii.entities.worker.Worker;
+import org.spring.web.vaii.repositories.WorkerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,19 +17,19 @@ import java.util.List;
 public class WorkerService implements UserDetailsService
 {
     WorkerRepository workerRepository;
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
-    public WorkerService(WorkerRepository workerRepository, BCryptPasswordEncoder bCryptPasswordEncoder)
+    public WorkerService(WorkerRepository workerRepository, PasswordEncoder passwordEncoder)
     {
         this.workerRepository = workerRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void save(Worker worker)
     {
         worker.setRole(Role.USER);
-        worker.setPassword(this.bCryptPasswordEncoder.encode(worker.getPassword()));
+        worker.setPassword(this.passwordEncoder.encode(worker.getPassword()));
         this.workerRepository.save(worker);
     }
 

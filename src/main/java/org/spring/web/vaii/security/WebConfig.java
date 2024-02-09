@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.security.SecureRandom;
 
@@ -26,6 +27,9 @@ public class WebConfig extends WebSecurityConfigurerAdapter
 
     @Autowired
     UserDetailsService userDetailsService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -54,6 +58,9 @@ public class WebConfig extends WebSecurityConfigurerAdapter
 
     }
 
+
+
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
@@ -63,7 +70,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(new BCryptPasswordEncoder(10, new SecureRandom())); //salting
+        provider.setPasswordEncoder(this.passwordEncoder); //salting
         return provider;
     }
 

@@ -1,5 +1,6 @@
-package org.spring.web.vaii.entities.image;
+package org.spring.web.vaii.repositories;
 
+import org.spring.web.vaii.entities.image.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,8 @@
-package org.spring.web.vaii;
+package org.spring.web.vaii.services;
 
+import org.spring.web.vaii.Countdown;
 import org.spring.web.vaii.entities.score.Score;
-import org.spring.web.vaii.entities.score.ScoreService;
+import org.spring.web.vaii.services.ScoreService;
 import org.spring.web.vaii.entities.worker.Worker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
