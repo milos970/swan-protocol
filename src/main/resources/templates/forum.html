@@ -32,7 +32,7 @@
 
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" th:href="@{/worker/home}">Home</a></li>
+                            <li><a class="dropdown-item" th:href="@{/user/home}">Home</a></li>
 
                         </ul>
                     </li>
@@ -48,7 +48,7 @@
 
 
 
-<form action="#" id="form" th:action="@{/worker/add-comment}" th:object="${comment}"  method="post">
+<form action="#" id="form" th:action="@{/user/add-comment}" th:object="${comment}"  method="post">
     <textarea class="forum-text-area" th:field="*{text}" placeholder="Enter your message here!" rows="5" cols="50" name="comment" form="form"></textarea>
     <input class="forum-input" type="submit">
 </form>
@@ -62,7 +62,7 @@
 
     <tr th:each="comment: ${comments}">
         <td th:text="${comment.text}" />
-        <td th:text="${comment?.worker?.getUsername()}"></td>
+        <td th:text="${comment?.user?.getUsername()}"></td>
         <td th:text="${comment.creationDateTime}"></td>
     </tr>
 </table>

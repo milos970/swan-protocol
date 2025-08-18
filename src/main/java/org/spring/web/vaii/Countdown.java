@@ -1,63 +1,40 @@
 package org.spring.web.vaii;
 
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
-import java.util.Collections;
+@Component
+@EnableScheduling
+public class Countdown {
 
-public class Countdown extends Thread {
-    private final int[] time;
-    private boolean stopRunning;
+    private final SimpMessagingTemplate template;
+    private int minutes = 2;
+    private int seconds = 0;
 
-    private final int minutes;
-    private int seconds;
-
-    public Countdown(int minutes, int seconds)
-    {
-        this.time = new int[2];
-        this.minutes = minutes;
-        this.seconds = seconds;
+    public Countdown(SimpMessagingTemplate template) {
+        this.template = template;
     }
 
-    @Override
-    public void run() {
 
-
-
-        while ( true) {
-
-            this.stopRunning = false;
-            for (int minutes = this.minutes; minutes >= 0 && !this.stopRunning; --minutes)
-            {
-                this.time[0] = minutes;
-                for (int seconds = this.seconds; seconds >= 0 && !this.stopRunning; --seconds )
-                {
-                    this.time[1] = seconds;
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-
-
-                }
-                this.seconds = 59;
-            }
-
-            if (!this.stopRunning) {
-                return;
-            }
-
-
+    @Scheduled(fixedRate = 1000) // každú sekundu
+    public void publishCountdown() {
+        if (minutes == 0 && seconds == 0) {
+            template.convertAndSend("/topic/countdown", new int[]{0, 0});
+            return;
         }
 
+        if (seconds == 0) {
+            minutes--;
+            seconds = 59;
+        } else {
+            seconds--;
+        }
+
+        template.convertAndSend("/topic/countdown", new int[]{minutes, seconds});
     }
 
 
-    public void reset() {
-        this.stopRunning = true;
 
-    }
-
-    public int[] getTime() {
-        return this.time;
-    }
 }

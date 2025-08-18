@@ -10,7 +10,7 @@
     <li>Simple forum for communication among workers</li>
     <li>Ajax implementation</li>
     <li>CRUD implementation</li>
-    <li>Implementation of worker API</li>
+    <li>Implementation of user API</li>
   </ul>
 </p>
 <h2>Requirements</h2>

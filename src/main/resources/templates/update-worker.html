@@ -12,7 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <title>Update</title>
 </head>
-<body class="update-worker-body" onload="ajax()">
+<body class="update-user-body" onload="ajax()">
 
 <header>
 
@@ -30,10 +30,10 @@
 
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" th:href="@{/worker/home}">Home</a></li>
-                            <li><a class="dropdown-item" th:href="@{/worker/update-page}">Update</a></li>
-                            <li><a class="dropdown-item" th:href="@{/worker/delete/{id}(id=${worker.id})}">Delete the account</a></li>
-                            <li><a class="dropdown-item" th:href="@{/worker/logout}">Logout</a></li>
+                            <li><a class="dropdown-item" th:href="@{/user/home}">Home</a></li>
+                            <li><a class="dropdown-item" th:href="@{/user/update-page}">Update</a></li>
+                            <li><a class="dropdown-item" th:href="@{/user/delete/{id}(id=${user.id})}">Delete the account</a></li>
+                            <li><a class="dropdown-item" th:href="@{/user/logout}">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -52,7 +52,7 @@
                     <div class="card-body p-5">
                         <h2 class="text-uppercase text-center mb-5">Update</h2>
 
-                        <form id="form" th:action="@{/worker/update-worker/{id}(id=${worker.id})}" th:object="${worker}"  method="post">
+                        <form id="form" th:action="@{/user/update-user/{id}(id=${user.id})}" th:object="${user}"  method="post">
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form3Example1cg">Name</label>

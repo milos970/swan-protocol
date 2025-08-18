@@ -12,11 +12,15 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+
+    <!-- potom STOMP -->
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
     <script th:src="@{/js/effect.js}"></script>
 
     <title>Web page</title>
 </head>
-<body onload="ajax()">
+<body>
 
 <header>
 
@@ -50,7 +54,7 @@
 
 
         <video muted autoplay loop preload="auto">
-            <source th:src="@{${videoPath}}">
+            <source th:src="${titleVideo}" type="video/mp4">
         </video>
 
 
@@ -63,7 +67,7 @@
 
 <section id="first">
     <div class="picture-with-centered-text">
-        <img class="picture-1-user" src="../static/files/images/1.jpg" th:src="@{${imagePathA}}" alt="Mountains">
+        <img class="picture-1-user"  th:src="${sectionImageA}" alt="Mountains">
         <a th:href="@{/page-a}">Look at those mountains!</a>
     </div>
 </section>
@@ -71,8 +75,8 @@
 
 <section id="second">
     <div class="picture-with-centered-text">
-        <img class="picture" src="../static/files/images/2.jpg" th:src="@{${imagePathB}}" alt="Wheat field">
-        <a th:href="@{/page-b}">Looking for a place to hide?</a>
+        <img class="picture"  th:src="${sectionImageB}" alt="Wheat field">
+        <a th:href="@{/population-preview}">Looking for a place to hide?</a>
     </div>
 </section>
 
@@ -85,7 +89,7 @@
                     <div class="card-body p-5">
                         <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
-                        <form id="form" th:action="@{/add-worker}" th:object="${worker}"  method="post">
+                        <form id="form" th:action="@{/submit}" th:object="${user}"  method="post">
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form3Example1cg">Name</label>
@@ -94,7 +98,6 @@
                                 <p id="username-hint">&#8203;</p>
                                 <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error </p>
                             </div>
-
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form3Example3cg">Email</label>

@@ -1,71 +1,22 @@
 
-const time = document.getElementById("countdown");
+function connect() {
+    const socket = new SockJS('/ws');
+    const stompClient = Stomp.over(socket);
 
-times =[];
-
-changed = false;
-
-function timedCount() {
-
-    something();
-    if (times[0] < 1 && changed === false) {
-
-        changed = true;
-    }
-
-
-
-    postMessage("s");
-    setTimeout("timedCount()",500);
-
-
-}
-
-timedCount();
-
-function something() {
-
-
-    jQuery.ajax({
-        url: "/get-time",
-        data: 'form3Example1cg=' + $("#form3Example1cg").val(),
-        type: "GET",
-        success: function (data) {
-
-            times[0] = data[0];
-            times[1] = data[1];
-
-
-
-            if (data[0] ==0) {
-
-            }
-
-            if (data[1] >= 10) {
-                time.innerHTML = "0"+ data[0].toString() + ":" + data[1].toString() ;
-            } else {
-                time.innerHTML = "0"+ data[0].toString() + ":0" + data[1].toString() ;
-            }
-
-            if (data[0] == 0 && data[1] == 0) {
-
-            }
-
-
-
-
-
-
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-
-        },
+    stompClient.connect({}, function(frame) {
+        console.log("Connected: " + frame);
+        stompClient.subscribe('/topic/countdown', function (message) {
+            const data = JSON.parse(message.body);
+            document.getElementById("countdown").innerText = `${data[0]}:${data[1]}`;
+            localStorage.setItem("minutes", data[0]);
+            localStorage.setItem("seconds", data[1]);
+        });
     });
 
-
+    return stompClient;
 }
 
-
+let client = connect();
 
 
 
@@ -73,78 +24,41 @@ function something() {
 
 
 function checkPassword() {
-
     jQuery.ajax({
         url: "/check-code",
-        data: 'form3Example1cg=' + $("#password").val(),
+        data: 'form3Example1cg=' + $("#passwordInput").val(), // unikátne ID
         type: "GET",
-        success: function (data) {
-
+        success: function(data) {
             if (data) {
-
+                // tu môžeš spraviť niečo pri úspešnej kontrole
             }
-
         },
-        error: function (xhr, ajaxOptions, thrownError) {
-
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.error("Chyba pri checkPassword:", thrownError);
         },
     });
 
-    $("#password").val() = '';
-
+    // správne vymazanie hodnoty
+    $("#passwordInput").val('');
 }
 
-
-
-
-
-let validUsername = false;
-let validEmail = false;
-let validPassword = false;
-let validRepPassword = false;
-
-
-function ajax() {
-
-    jQuery.ajax({
-        url: "/is-finished",
-        type: "GET",
-        success: function (data) {
-
-
-            if (data == true) {
-                shakeAll();
-            }
-
-            if (data == false) {
-                unshakeAll();
-            }
-
-
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-
-        },
-    });
-
-}
 
 
 function shakeAll() {
-    const all = document.getElementsByTagName("*");
-
-    for (let i = 0; i < all.length; ++i) {
-        all[i].classList.add("all");
+    const allElements = document.getElementsByTagName("*");
+    for (const element of allElements) {
+        element.classList.add("all");
     }
 }
 
 function unshakeAll() {
-    const all = document.getElementsByTagName("*");
-    for (const all of element) {
-        all.classList.remove("all");
+    const allElements = document.getElementsByTagName("*");
+    for (const element of allElements) {
+        element.classList.remove("all");
     }
-
 }
+
+
 
 const username = document.getElementById("form3Example1cg");
 const email = document.getElementById("form3Example3cg");
@@ -355,11 +269,3 @@ function isFieldEmpty()
         button.disabled = false;
     }
 }
-
-
-
-
-
-
-
-
