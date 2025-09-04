@@ -21,9 +21,27 @@
 
  ## 🧰 Technologies
 
-### 🔹 Languages & Frameworks  
-<ul>
-  <li>Spring Boot</li>
+ <table><tr><td valign="top" width="33%">
+
+### Frontend  
+<div align="left">
+  <ul style="list-style-type: disc; display: inline-block;">
+    <li><a href="https://www.bootstrapdash.com/product/corona-free" target="_blank" rel="noopener noreferrer">Template</a></li>
+    <li>HTML</li>
+    <li>JavaScript</li>
+    <li>CSS</li>
+  </ul>
+</div>
+
+
+</td><td valign="top" width="33%">
+
+
+
+### Backend  
+<div align="left">
+  <ul style="list-style-type: disc; display: inline-block;">
+     <li>Spring Boot</li>
     <ul>
       <li>Thymeleaf</li>
       <li>Hibernate</li>
@@ -35,12 +53,25 @@
   <li>JavaScript</li>
   <li>Bootstrap</li>
   <li>MySQL</li>
-</ul>
+</td><td valign="top" width="33%">
 
-  ### 🔹 Development & Testing
-  <ul>
-  <li>Maven</li>
+
+
+### Development & Testing  
+<div align="left">
+  <ul style="list-style-type: disc; display: inline-block;">
+    <li>Maven</li>
   <li>Git</li>
   <li>IntelliJ</li>
   <li>Postman</li>
-</ul>
+  </ul>
+</div>
+
+
+</td></tr></table>
+
+
+
+
+
+
