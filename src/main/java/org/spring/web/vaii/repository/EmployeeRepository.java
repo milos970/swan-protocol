@@ -1,6 +1,6 @@
 package org.spring.web.vaii.repository;
 
-import org.spring.web.vaii.entity.User;
+import org.spring.web.vaii.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<Long, User> {
-
-    @Query("SELECT u FROM User u WHERE u.username = :username")
-    Optional<User> findByUsername(String username);
+public interface EmployeeRepository extends JpaRepository<Long, Employee>
+{
+    @Query("SELECT e FROM Employee e WHERE e.user.username = :username")
+    Optional<Employee> findByUsername(String username);
 }

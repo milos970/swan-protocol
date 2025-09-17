@@ -13,7 +13,7 @@ public class WebSocketConfig  implements WebSocketMessageBrokerConfigurer
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/topic"); // pre správy server → klient
-        config.setApplicationDestinationPrefixes("/app"); // klient → server
+        config.setApplicationDestinationPrefixes("/app/numbers"); // klient → server
     }
 
     @Override

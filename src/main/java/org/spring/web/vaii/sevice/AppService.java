@@ -1,52 +1,46 @@
 package org.spring.web.vaii.sevice;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.spring.web.vaii.Countdown;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 @Service
 public class AppService {
 
+    private  Countdown countdown;
 
-    private final String NUMBERS = "4 8 15 16 23 42";
+    private final String numbers = "2 5 4 8";
 
-    @Autowired
-    public AppService() {
+    public AppService(Countdown countdown) {
+        this.countdown = countdown;
     }
 
-    public boolean isEvening() {
 
+
+
+
+    public boolean isEvening() {
         Calendar time = Calendar.getInstance();
         int hours = time.get(Calendar.HOUR_OF_DAY);
         return 18 >= hours;
     }
 
 
-
-    public int[] getTime() {
-        return null;
-    }
-
-
-    public void codeVerify(String numbers)
-    {
-        if (NUMBERS.equals(numbers)) {
-
-            /*Score score = this.scoreService.getLastScore();
-            score.addSuccess();
-            this.scoreService.save(score);*/
+    public void setNumbers(String num) {
+        if ( (!this.countdown.isFinished()) && this.checkNumbers(num)) {
+            this.countdown.reset();
         }
     }
 
-
-    public boolean isFinished()
-    {
-
-
-
-        return false;
-
-
+    private boolean checkNumbers(String num) {
+        return num.equals(this.numbers);
     }
+
+
+
+
+
+
 }

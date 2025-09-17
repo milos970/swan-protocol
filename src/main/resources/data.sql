@@ -1,6 +1,6 @@
 INSERT INTO users (username, email, password, authority, enabled)
 VALUES
-('Admin', 'admin@gmail.com', '{bcrypt}Password/123_encoded_here',  'ROLE_ADMIN' ,true),
+('Admin', 'admin@gmail.com', '$2a$12$1k1nqYxgIuRxjugURLJlru5El6ZQtdAwd6whQgfo2MtSzSqmrmb3O',  'ROLE_ADMIN' ,true),
 ('Milos', 'mil@gmail.com', '{bcrypt}Password/456_encoded_here',  'ROLE_USER',true),
 ('Majo', 'majo@gmail.com', '{bcrypt}Password/789_encoded_here', 'ROLE_USER',true);
 

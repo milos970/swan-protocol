@@ -20,24 +20,24 @@
 <header>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/}">Home</a>
+            <a class="navbar-brand" href="/">Home</a>
         </div>
     </nav>
 </header>
 
 <h1>List of users</h1>
 
-<table class="table table-sm">
+<table class="table table-sm" style="color: white">
     <tr>
-        <th> <span>Number of successes</span> </th>
-        <th> <span>Worker</span> </th>
-
+        <th> <span>Username</span> </th>
+        <th> <span>Email</span> </th>
+        <th> <span>Action</span> </th>
     </tr>
 
-    <tr th:each="score: ${scores}">
-        <td th:text="${score.success}"></td>
-        <td th:text="${score.worker_name}"></td>
-        <td><a th:href="@{/admin/delete-score/{id}(id=${score.id})}">DELETE</a></td>
+    <tr th:each="user: ${users}">
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.email}"></td>
+        <td><a th:href="@{/users/{id}(id=${user.id})}">DELETE</a></td>
     </tr>
 
 

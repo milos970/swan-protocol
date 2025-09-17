@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/style-user.css}">
+    <link rel="stylesheet" href="/css/style-user.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-
-    <!-- potom STOMP -->
     <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 
 
@@ -24,26 +21,27 @@
 </head>
 
 
-
-<body  class="work-body" onload="startWorker()">
+<body class="work-body">
 
 <header>
 
     <nav class="navbar navbar-expand-lg bg-primary navbar-light" style="background-color: #e3f2fd ">
         <div class="container-fluid">
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${name}">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false" >
 
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" th:href="@{/worker/home}">Home</a></li>
+                            <li><a class="dropdown-item" href="/worker/home">Home</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -61,72 +59,18 @@
         <p id="countdown"></p>
     </div>
 
-
     <div class="screen">
-
         <div class="input">
             <span>&#8203;</span>
-            <form id="CityForm" onsubmit="checkPassword();return false">
-                <input id="password" autofocus />
-            </form>
-
+            <input type="text" id="numbers-input" placeholder="Kombinácia čísel">
         </div>
-
-
-
     </div>
 
 </div>
 
 
-
-
-
-
-<script>
-    function u(){
-      document.getElementById("City").addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
-          var x = document.getElementById("CityForm");
-          x.submit();
-          return false;
-        }
-      });
-    }
-
-
-</script>
-
-
-
-
-<script>
-    var w;
-
-    function startWorker() {
-      if (typeof(Worker) !== "undefined") {
-        if (typeof(w) == "undefined") {
-          w = new Worker("timer.js");
-        }
-        w.onmessage = function(event) {
-          document.getElementById("countdown").innerHTML = event.data;
-        };
-      } else {
-        document.getElementById("countdown").innerHTML = "Sorry! No Web Worker support.";
-      }
-    }
-
-    function stopWorker() {
-      w.terminate();
-      w = undefined;
-    }
-
-
-</script>
-
-<script th:src="@{/js/validate.js}"></script>
+<script src="/js/countdown.js"></script>
 </body>
-
 
 
 </html>

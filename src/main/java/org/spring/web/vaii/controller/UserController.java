@@ -1,13 +1,10 @@
 package org.spring.web.vaii.controller;
 
 import org.spring.web.vaii.entity.image.Media;
-import org.spring.web.vaii.entity.user.User;
+import org.spring.web.vaii.entity.User;
 import org.spring.web.vaii.sevice.AppService;
-import org.spring.web.vaii.sevice.CustomSessionManagement;
 import org.spring.web.vaii.sevice.MediaService;
 import org.spring.web.vaii.sevice.UserService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -108,22 +105,6 @@ public class UserController {
     }
 
 
-
-
-    @GetMapping(value = "/get-time", produces = "application/json")
-    @ResponseBody
-    public int[] currentTime() {
-        return this.appService.getTime();
-    }
-
-
-    @GetMapping("/check-code")
-    public ResponseEntity<Boolean> checkCode(@RequestParam("form3Example1cg") String form3Example1cg)
-    {
-       // this.appService.codeVerify(form3Example1cg);
-        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-    }
-
     @GetMapping("/user/home")
     public String workerPage(Model model, Authentication authentication) {
         String username = authentication.getName();
@@ -132,17 +113,32 @@ public class UserController {
     }
 
     @GetMapping("/user/count-down")
-    public String countDownPage(Model model) {
+    public String countDownPage() {
+
         return "work";
     }
 
-
-    @GetMapping("/is-finished")
-    public ResponseEntity<Boolean> isFinished()
-    {
-        //return new ResponseEntity<Boolean>(this.appService.isFinished(), HttpStatus.OK);
-        return null;
+    @GetMapping("/users")
+    public String users(Model model) {
+        List<User> users = this.userService.findAllUsers();
+        model.addAttribute("users",users);
+        return "users";
     }
+
+
+
+    @GetMapping("/check-username")
+    @ResponseBody
+    public boolean checkUsername(@RequestParam String username) {
+        return userService.existsByUsername(username);
+    }
+
+    @GetMapping("/check-email")
+    @ResponseBody
+    public boolean checkEmail(@RequestParam String email) {
+        return userService.existsByEmail(email);
+    }
+
 
 
 

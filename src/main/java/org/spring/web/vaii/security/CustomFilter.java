@@ -4,54 +4,41 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import org.spring.web.vaii.sevice.CustomSessionManagement;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import java.io.IOException;
 
+@Component
+public class CustomFilter extends OncePerRequestFilter
+{
+    private final AuthenticationManager authenticationManager;
 
-public class CustomFilter extends OncePerRequestFilter {
 
-    private final CustomSessionManagement customSessionManagement;
-
-    @Autowired
-    public CustomFilter(CustomSessionManagement customSessionManagement) {
-        this.customSessionManagement = customSessionManagement;
+    public CustomFilter(@Qualifier("customAuthManager") AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        String path = request.getRequestURI();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (path.startsWith("/login") || path.startsWith("/logout")) {
-            filterChain.doFilter(request, response);
-            return;
+        String uri = request.getRequestURI();
+
+        Authentication auth = null;
+
+        if (uri.startsWith("/jobs/countdown")) {
+            auth = new GuardianAuthenticationToken(authentication.getName(),auth.getAuthorities());
         }
 
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth != null && auth.isAuthenticated() && !(auth instanceof AnonymousAuthenticationToken)) {
-                String sessionId = session.getId();
-                if (this.customSessionManagement.isEmpty()) {
-                    this.customSessionManagement.setSessionId(sessionId);
-                } else if (this.customSessionManagement.checkSessionId(sessionId)) {
-                    filterChain.doFilter(request, response);
-                } else {
-                    response.sendRedirect("/login?alreadyLogged=true");
-                    return;
-                }
-            }
+        SecurityContextHolder.getContext().setAuthentication(this.authenticationManager.authenticate(auth));
 
-        }
+
         filterChain.doFilter(request, response);
-
-
     }
+
 }

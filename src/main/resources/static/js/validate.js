@@ -5,11 +5,11 @@ function connect() {
 
     stompClient.connect({}, function(frame) {
         console.log("Connected: " + frame);
-        stompClient.subscribe('/topic/countdown', function (message) {
+        stompClient.subscribe('/topic/finished', function (message) {
             const data = JSON.parse(message.body);
-            document.getElementById("countdown").innerText = `${data[0]}:${data[1]}`;
-            localStorage.setItem("minutes", data[0]);
-            localStorage.setItem("seconds", data[1]);
+            if (data === true) {
+                shakeAll();
+            }
         });
     });
 
@@ -19,69 +19,22 @@ function connect() {
 let client = connect();
 
 
+const shakeAll = () => document.querySelectorAll("*").forEach(el => el.classList.add("all"));
+const unshakeAll = () => document.querySelectorAll("*").forEach(el => el.classList.remove("all"));
 
 
 
 
-function checkPassword() {
-    jQuery.ajax({
-        url: "/check-code",
-        data: 'form3Example1cg=' + $("#passwordInput").val(), // unikátne ID
-        type: "GET",
-        success: function(data) {
-            if (data) {
-                // tu môžeš spraviť niečo pri úspešnej kontrole
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.error("Chyba pri checkPassword:", thrownError);
-        },
-    });
-
-    // správne vymazanie hodnoty
-    $("#passwordInput").val('');
-}
-
-
-
-function shakeAll() {
-    const allElements = document.getElementsByTagName("*");
-    for (const element of allElements) {
-        element.classList.add("all");
-    }
-}
-
-function unshakeAll() {
-    const allElements = document.getElementsByTagName("*");
-    for (const element of allElements) {
-        element.classList.remove("all");
-    }
-}
-
-
-
-const username = document.getElementById("form3Example1cg");
-const email = document.getElementById("form3Example3cg");
-const password = document.getElementById("form3Example4cg");
-const repPassword = document.getElementById("form3Example4cdg");
 
 const button = document.getElementById("submitButton");
-
-
 const usernameHint = document.getElementById("username-hint");
 const emailHint = document.getElementById("email-hint");
-const passwordHint = document.getElementById("password-hint");
-const repPasswordHint = document.getElementById("rep-password-hint");
-
-const upperCaseHint = document.getElementById("upperCase");
-const lowerCaseHint = document.getElementById("lowerCase");
-const oneNumberHint = document.getElementById("oneNumber");
-const specialCharacterHint = document.getElementById("specialCharacter");
-const rangeHint = document.getElementById("range");
-
 
 const usernameLogin = document.getElementById("form1Example13");
 const passwordLogin = document.getElementById("form1Example23");
+
+
+
 
 const tim = document.getElementById("par");
 
@@ -93,43 +46,71 @@ function myInit() {
 }
 
 
+/************************************Username******************************************/
+
+const usernameInput = document.getElementById("username");
+
+usernameInput.addEventListener("input", () => {
+    usernameValidation();
+});
 
 function usernameValidation() {
     validUsername = true;
 
-    if (username.value === "") { //nac posielat cez ajax prazdne heslo ze
+    if (username.value.trim() === "") {
         validUsername = false;
         canSubmit();
         return;
     }
 
+    const url = "/check-username?username=" + encodeURIComponent(usernameInput.value);
 
-
-    jQuery.ajax({
-        url: "/check-username",
-        data: 'form3Example1cg=' + $("#form3Example1cg").val(),
-        type: "GET",
-        success: function (data) {
-            if (data == true) {
+    fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.json(); // predpokladáme, že backend vracia boolean true/false
+        })
+        .then(data => {
+            if (data === true) {
                 usernameHint.innerHTML = "The username already exists!";
                 validUsername = false;
-                canSubmit();
             } else {
-                if ( validUsername || (username.value === "")) {
-                    usernameHint.innerHTML = "&#8203";
-                    canSubmit();
-                }
-
+                usernameHint.innerHTML = "&#8203;";
             }
-
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-
-        },
-    });
-
-
+            canSubmit();
+        })
+        .catch(error => {
+            console.error("Error checking username:", error);
+        });
 }
+
+/************************************Username******************************************/
+
+
+
+
+
+/************************************Password******************************************/
+
+const passwordInput = document.getElementById("password");
+const rePasswordInput = document.getElementById("re-password");
+const passwordHint = document.getElementById("password-hint");
+const repPasswordHint = document.getElementById("rep-password-hint");
+const upperCaseHint = document.getElementById("upperCase");
+const lowerCaseHint = document.getElementById("lowerCase");
+const oneNumberHint = document.getElementById("oneNumber");
+const specialCharacterHint = document.getElementById("specialCharacter");
+const rangeHint = document.getElementById("range");
+
+
+passwordInput.addEventListener("input", () => {
+    passwordValidation();
+});
+
+
+rePasswordInput.addEventListener("input", () => {
+    rePasswordValidation();
+});
 
 function passwordValidation() {
     const regexUpperCase = /[A-Z]/g;
@@ -139,29 +120,30 @@ function passwordValidation() {
     validPassword = true;
 
 
+    const value = passwordInput.value;
 
-    if (password.value.match(regexUpperCase)) {
+    if (value.match(regexUpperCase)) {
         upperCaseHint.style.color = "green";
     } else {
         upperCaseHint.style.color = "black";
         validPassword = false;
     }
 
-    if (password.value.match(regexLowerCase)) {
+    if (value.match(regexLowerCase)) {
         lowerCaseHint.style.color = "green";
     } else {
         lowerCaseHint.style.color = "black";
         validPassword = false;
     }
 
-    if (password.value.match(regexNumber)) {
+    if (value.match(regexNumber)) {
         oneNumberHint.style.color = "green";
     } else {
         oneNumberHint.style.color = "black";
         validPassword = false;
     }
 
-    if (password.value.match(regexSpecialCharacter)) {
+    if (value.match(regexSpecialCharacter)) {
         specialCharacterHint.style.color = "green";
     } else {
         specialCharacterHint.style.color = "black";
@@ -169,7 +151,7 @@ function passwordValidation() {
     }
 
 
-    if (password.value.length >= 12 ) {
+    if (value.length >= 12 ) {
         rangeHint.style.color = "green";
     } else {
         rangeHint.style.color = "black";
@@ -177,71 +159,21 @@ function passwordValidation() {
     }
 
 
-    this.repPasswordValidation();
+    repPasswordValidation();
 
     canSubmit();
 
 }
 
-function emailValidation() {
 
-    validEmail = true;
-
-    const regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-
-    if (String(email.value).toLowerCase().match(regex)) {
-        emailHint.innerHTML = "&#8203";
-    } else {
-        if (email.value === "") {
-            emailHint.innerHTML = "&#8203";
-        } else {
-            emailHint.innerHTML = "Invalid email format!";
-            validEmail = false;
-            canSubmit();
-            return;
-        }
-
-    }
-
-
-    jQuery.ajax({
-
-        url: "/check-email",
-        data: 'form3Example3cg=' + $("#form3Example3cg").val(),
-        type: "GET",
-        success: function (data) {
-            if (data == true) {
-
-                emailHint.innerHTML = "The email already exists!";
-                validEmail = false;
-                canSubmit();
-
-            } else {
-
-                if ( (validEmail) || (email.value === "")) {
-                    emailHint.innerHTML = "&#8203";
-                    canSubmit();
-                }
-
-            }
-
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-
-        },
-    });
-
-
-
-
-}
-
-
-function repPasswordValidation() {
+function rePasswordValidation() {
 
     validRepPassword = true;
 
-    if ( (password.value === repPassword.value) || (repPassword.value === "" && password.value() !== "")) {
+    const valueRe = rePasswordInput.value;
+    const valuePa = passwordInput.value;
+
+    if ( (valuePa === valueRe) || ( (valueRe === "") && (valuePa !== "") )) {
         repPasswordHint.innerHTML = "&#8203";
     } else {
         repPasswordHint.innerHTML = "Passwords do not matches!";
@@ -251,9 +183,72 @@ function repPasswordValidation() {
     canSubmit();
 }
 
+/************************************Password******************************************/
+
+
+
+
+
+
+/************************************Email******************************************/
+const emailInput = document.getElementById("email");
+
+emailInput.addEventListener("input", () => {
+    emailValidation();
+});
+
+const emailRegex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+
+function checkEmail() {
+        const emailValue = emailInput.value;
+
+        fetch("/check-email?email=" + encodeURIComponent(emailValue))
+            .then(response => {
+                if (!response.ok) throw new Error("Network response was not ok");
+                return response.json();
+            })
+            .then(data => {
+                if (data === true) {
+                    emailHint.innerHTML = "The email already exists!";
+                    validEmail = false;
+                    canSubmit();
+                } else {
+                    if (validEmail || emailValue === "") {
+                        emailHint.innerHTML = "&#8203;";
+                        canSubmit();
+                    }
+                }
+            })
+            .catch(error => {
+                console.error("Error checking email:", error);
+            });
+}
+function emailValidation()
+{
+    validEmail = true;
+    if (String(email.value).toLowerCase().match(emailRegex)) {
+        emailHint.innerHTML = "&#8203";
+    } else {
+        if (email.value === "") {
+            emailHint.innerHTML = "&#8203";
+            return;
+        } else {
+            emailHint.innerHTML = "Invalid email format!";
+            validEmail = false;
+            canSubmit();
+            return;
+        }
+
+    }
+
+    checkEmail();
+}
+/************************************Email******************************************/
+
+
+
+
 function canSubmit() {
-
-
     button.disabled = !(validUsername && validEmail && validPassword && validRepPassword);
 }
 

@@ -8,6 +8,19 @@
     background-color: black;
 }
 
+@keyframes background {
+  from {background-color: black;}
+  to {background-color: red;}
+}
+
+
+.work-body-error {
+  background-color: black;
+  animation-name: background;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
 
 .flex-container {
     display: flex;

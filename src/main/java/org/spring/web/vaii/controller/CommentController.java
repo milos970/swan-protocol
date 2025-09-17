@@ -1,6 +1,6 @@
 package org.spring.web.vaii.controller;
 
-import org.spring.web.vaii.entity.comment.Comment;
+import org.spring.web.vaii.entity.Comment;
 import org.spring.web.vaii.sevice.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

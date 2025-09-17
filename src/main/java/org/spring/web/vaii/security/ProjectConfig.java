@@ -1,25 +1,27 @@
 package org.spring.web.vaii.security;
 
-import jakarta.servlet.http.HttpSession;
-import org.spring.web.vaii.sevice.CustomSessionManagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.sql.DataSource;
+import static org.springframework.security.authorization.AuthorityAuthorizationManager.hasRole;
+import static org.springframework.security.authorization.AuthorizationManagers.allOf;
 
 @Configuration
 public class ProjectConfig {
 
     @Autowired
-    private CustomSessionManagement customSessionManagement;
+    private CustomFilter customFilter;
+
+    @Autowired
+    private CustomSuccessHandler customSuccessHandler;
 
     private final String[] whiteList = {
             "/css/**",
@@ -29,70 +31,55 @@ public class ProjectConfig {
             "/",
             "/login",
             "/population-preview",
+            "/nature-preview",
             "/login-page",
             "/submit",
-            "get-time"
+            "/work",
+            "/check-email",
+            "/check-username",
+            "/ws/**",
+            "/topic/**"
     };
-    private final String[] blackList = {"/admin/**"};
+
+
 
 
     @Bean
-    SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http.sessionManagement(session -> session
-                        .maximumSessions(1)
-                        .maxSessionsPreventsLogin(true) // zabráni novému prihláseniu
-                )
-                .addFilterAfter(customFilter(customSessionManagement), UsernamePasswordAuthenticationFilter.class)
+    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        http
+                .sessionManagement(session -> session.maximumSessions(1).maxSessionsPreventsLogin(true))
+                .addFilterAfter(customFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/ws/**").permitAll()   // povolí WebSocket handshake
-                        .requestMatchers("/topic/**").permitAll()
+                        .requestMatchers("/users/**").hasRole("ADMIN")
+                        .requestMatchers("/pages/jobs/countdown-timer/**").access(allOf(hasRole("USER"), hasRole("GUARDIAN")))
                         .requestMatchers(whiteList).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
-                        .loginPage("/login")                  // GET /login -> zobrazí login.html
-                        .loginProcessingUrl("/login")         // POST /login spracuje Spring Security
-                        .defaultSuccessUrl("/user/home", true)// kam presmerovať po úspechu
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .successHandler(customSuccessHandler)
                         .failureUrl("/login?error=true")
-
                         .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .addLogoutHandler((request, response, authentication) -> {
-                            HttpSession session = request.getSession(false);
-                            customSessionManagement.removeSessionId(session.getId());
-                        })
-                        .logoutSuccessUrl("/")
-                        .permitAll()
-
-
-                );
+                        .logoutSuccessUrl("/login?logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll());
 
         return http.build();
     }
 
-
     @Bean
-    JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
-        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-        manager.setUsersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?");
-        manager.setAuthoritiesByUsernameQuery("SELECT username, authority FROM users WHERE username = ?");
-        return manager;
+    public AuthenticationManager customAuthManager(CustomAuthProvider customAuthProvider) {
+        return new ProviderManager(customAuthProvider);
     }
 
-    @Bean
-    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-        return new JdbcTemplate(dataSource);
-    }
+
 
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
-    }
-
-
-    @Bean
-    public CustomFilter customFilter(CustomSessionManagement sessionManagement) {
-        return new CustomFilter(sessionManagement);
     }
 
 }
