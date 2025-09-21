@@ -1,6 +1,6 @@
 package org.spring.web.vaii;
 
-public enum DAY_TIME {
+public enum DayTime {
     DAY,
     NIGHT;
 }

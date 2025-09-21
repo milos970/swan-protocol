@@ -6,7 +6,6 @@ import org.spring.web.vaii.entity.WorkSchedule;
 import org.spring.web.vaii.repository.EmployeeRepository;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -44,7 +43,7 @@ public class CustomAuthProvider implements AuthenticationProvider {
                 Stream.of(new SimpleGrantedAuthority("ROLE_" + employee.getRole().name()))
         ).toList();
 
-        return new GuardianAuthenticationToken(username, authorities);
+        return new GuardianAuthenticationToken(username, authorities, workSchedule.getEndTime());
 
     }
 

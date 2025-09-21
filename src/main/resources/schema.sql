@@ -28,13 +28,22 @@ CREATE TABLE IF NOT EXISTS statistics (
 );
 
 CREATE TABLE IF NOT EXISTS media (
-   id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
     path VARCHAR(255),
     type VARCHAR(15),
     day_time VARCHAR(5)
 );
 
+CREATE TABLE IF NOT EXISTS comments (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    content VARCHAR(300) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id BIGINT NOT NULL,
+    CONSTRAINT fk_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+);
 
 ALTER TABLE work_schedules
 ADD CONSTRAINT fk_statistics FOREIGN KEY (statistics_id) REFERENCES statistics(id);

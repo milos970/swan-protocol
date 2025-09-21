@@ -1,10 +1,10 @@
 package org.spring.web.vaii.entity.image;
 
-import org.spring.web.vaii.DAY_TIME;
+import org.spring.web.vaii.DayTime;
 
 public class Video extends Media
 {
-    public Video(String name, String path, DAY_TIME dayTime) {
+    public Video(String name, String path, DayTime dayTime) {
         super(name, path, dayTime);
     }
 }
