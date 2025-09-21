@@ -92,4 +92,4 @@ application-dev.properties
 application-test.properties
 
 # Ignore env files
-.env
+*.env
