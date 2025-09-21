@@ -1,6 +1,7 @@
 package org.spring.web.vaii.sevice;
 
 import org.spring.web.vaii.entity.User;
+import org.spring.web.vaii.repository.UserRepository;
 import org.spring.web.vaii.validator.EmailValidator;
 import org.spring.web.vaii.validator.PasswordValidator;
 import org.spring.web.vaii.validator.UsernameValidator;
