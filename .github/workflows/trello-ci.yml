@@ -1,5 +1,6 @@
-name: CI with Trello
+name: Kanban CI + Trello Integration
 
+# Spúšťa sa pri pushi alebo pull requeste na main
 on:
   push:
     branches: [ main ]
@@ -11,31 +12,48 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout kódu
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2️⃣ Nastavenie JDK
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build and test
-        run: |
-          ./mvnw clean test
+      # 3️⃣ Build a testy
+      - name: Build and run tests
+        run: ./mvnw clean test
 
-      - name: Notify Trello (success)
+      # 4️⃣ Pri úspechu testov
+      - name: ✅ Notify Trello success
         if: success()
         run: |
+          # Pridaj komentár
           curl -X POST "https://api.trello.com/1/cards/${{ secrets.TRELLO_CARD_ID }}/actions/comments" \
-          -d "text=✅ Build passed for commit $GITHUB_SHA" \
+          -d "text=✅ Tests passed for commit $GITHUB_SHA" \
+          -d "key=${{ secrets.TRELLO_API_KEY }}" \
+          -d "token=${{ secrets.TRELLO_TOKEN }}"
+          
+          # Presuň kartu do Testing
+          curl -X PUT "https://api.trello.com/1/cards/${{ secrets.TRELLO_CARD_ID }}" \
+          -d "idList=${{ secrets.TRELLO_TESTING_LIST_ID }}" \
           -d "key=${{ secrets.TRELLO_API_KEY }}" \
           -d "token=${{ secrets.TRELLO_TOKEN }}"
 
-      - name: Notify Trello (failure)
+      # 5️⃣ Pri zlyhaní testov
+      - name: ❌ Notify Trello failure
         if: failure()
         run: |
           curl -X POST "https://api.trello.com/1/cards/${{ secrets.TRELLO_CARD_ID }}/actions/comments" \
           -d "text=❌ Build failed for commit $GITHUB_SHA" \
+          -d "key=${{ secrets.TRELLO_API_KEY }}" \
+          -d "token=${{ secrets.TRELLO_TOKEN }}"
+          
+          # Presuň kartu späť do In Progress
+          curl -X PUT "https://api.trello.com/1/cards/${{ secrets.TRELLO_CARD_ID }}" \
+          -d "idList=${{ secrets.TRELLO_PROGRESS_LIST_ID }}" \
           -d "key=${{ secrets.TRELLO_API_KEY }}" \
           -d "token=${{ secrets.TRELLO_TOKEN }}"
