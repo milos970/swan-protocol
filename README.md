@@ -16,7 +16,7 @@
 
 ---
 
-## 📝 Overview
+## 📝 Description
 
 Swan Protocol is a web application inspired by the TV show *The Lost*.
 
