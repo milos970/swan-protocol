@@ -375,45 +375,7 @@ No manual SQL schema initialization is required.
 
 ---
 
-## 📸 Screenshots
-
-### Login
-
-![Login](docs/screenshots/login.png)
-
-### Dashboard
-
-![Dashboard](docs/screenshots/dashboard.png)
-
-### Countdown
-
-![Countdown](docs/screenshots/countdown.png)
-
-### Forum
-
-![Forum](docs/screenshots/forum.png)
-
-### User Management
-
-![User Management](docs/screenshots/users.png)
-
----
-
 ## 🧪 Testing
-
-The application has been tested across the main application flows, including:
-
-* User registration
-* Authentication
-* Authorization
-* CRUD operations
-* Client-side validation
-* Server-side validation
-* Countdown behavior
-* Database persistence
-* Flyway migrations
-* Redis functionality
-* Invalid input handling
 
 API endpoints were tested using **Postman**.
 
